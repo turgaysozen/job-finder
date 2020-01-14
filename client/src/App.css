@@ -1,0 +1,39 @@
+body {
+  margin: 20px 150px;
+}
+
+.job{
+  width: 96%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+}
+
+.job:hover{
+  cursor: pointer;
+}
+
+.postedDay{
+padding-top: 20px;
+}
+.counter{
+  width: 30px;
+  height: 28px;
+  background-color: rgb(255, 215, 162);
+  text-align: center;
+  border-radius: .1rem;
+}
+
+.JobsTitle{
+  color:rgb(104, 190, 107);
+}
+
+.jobCount{
+  margin-bottom: 15px;
+}
+.jobfilter > input{
+margin-left: 20px;
+font-size: 16px;
+border-radius: .2rem;
+}
