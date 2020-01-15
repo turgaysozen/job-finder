@@ -1,7 +1,7 @@
 import React from 'react';
 import { Paper, Typography } from "@material-ui/core";
 
-export default function Job({ job, counter, diffDays }) {
+export default function Job({ job, counter }) {
 
     // const date = job.created_at;
     // let month, day, year;

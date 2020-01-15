@@ -13,11 +13,11 @@ const JOB_API_URL = 'http://localhost:3001/jobs';
 async function JobFetch(updateCb) {
   const res = await fetch(JOB_API_URL);
   const json = await res.json();
-
   updateCb(json);
 }
 
 function App() {
+
   const [jobList, updateJobs] = React.useState([]);
 
   React.useEffect(() => {
