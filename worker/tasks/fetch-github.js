@@ -12,7 +12,7 @@ async function fetchGithub() {
     let allJobs = [], onPage = 0, resultCount = 1;
 
     //fetch all pages from github
-    while (resultCount > 0) {
+    while (onPage <= 2) {
         const res = await fetch(`${baseUrl}?page=${onPage}`);
         const jobs = await res.json();
         resultCount = jobs.length;
