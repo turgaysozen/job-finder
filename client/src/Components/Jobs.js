@@ -54,7 +54,7 @@ export default function Jobs({ jobs }) {
                 {jobs.length !== 0 ? 'Total ' + jobs.length + ' Jobs Listed' : null}
             </div>
             {
-                jobs.map((job, counter) => <Job key={job.id} job={job} counter={counter} />)
+                jobs.map((job, counter) => <Job key={counter} job={job} counter={counter} />)
             }
         </div>
     )

@@ -38,7 +38,7 @@ export default function Job({ job, counter }) {
                { 
                job.url.includes('github') === true ? 
                
-               <Typography style={{ fontSize: '11px', marginTop: '10px' }}>Source: <a target='_blank' href={job.url}> Github</a></Typography> : ''}
+               <Typography style={{ fontSize: '11px', marginTop: '10px' }}>Source: <a target='_blank' rel="noopener noreferrer" href={job.url}> Github</a></Typography> : ''}
 
                 <Paper style={{ backgroundColor: '#f1f1f1' }} className="job">
                     <div>
