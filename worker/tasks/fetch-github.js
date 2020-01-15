@@ -9,10 +9,10 @@ const setAsync = promisify(client.set).bind(client);
 const baseUrl = 'https://jobs.github.com/positions.json';
 
 async function fetchGithub() {
-    let allJobs = [], onPage = 0, resultCount = 1;
+    let allJobs = [], onPage = 1, resultCount = 1;
 
     //fetch all pages from github
-    while (onPage <= 2) {
+    while (onPage < 3) {
         const res = await fetch(`${baseUrl}?page=${onPage}`);
         const jobs = await res.json();
         resultCount = jobs.length;
