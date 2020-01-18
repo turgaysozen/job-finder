@@ -9,18 +9,18 @@ const setAsync = promisify(client.set).bind(client);
 const baseUrl = 'https://jobs.github.com/positions.json';
 
 async function fetchGithub() {
-    let allJobs = [], onPage = 1, resultCount = 1;
+    let allJobs = [], onPage = 1;
 
     //fetch all pages from github
     while (onPage < 3) {
         const res = await fetch(`${baseUrl}?page=${onPage}`);
         const jobs = await res.json();
-        resultCount = jobs.length;
         allJobs.push(...jobs);
-        // console.log(jobs.length + ' added');
+        console.log(jobs.length + ' added');
         onPage++;
     }
-    // console.log('Total Jobs: ' + allJobs.length);
+    console.log('Total Jobs: ' + allJobs.length);
+
     let addedTime = new Date();
     addedTime.setHours(addedTime.getHours() + 3);
 
@@ -29,28 +29,31 @@ async function fetchGithub() {
         let jobTitle = job.title.toLowerCase();
         let jobDesc = job.description.toLowerCase();
         if (
+
             jobTitle.includes('senior') || jobTitle.includes('manager') || jobTitle.includes('sr.')
-            || jobTitle.includes('architect') || jobTitle.includes('lead') || jobTitle.includes('director')
-            || jobTitle.includes('coach') || jobTitle.includes('master') || jobTitle.includes('specialist')
-            || jobDesc.includes('4 years') || jobDesc.includes('4+ years') || jobDesc.includes('5 years')
-            || jobDesc.includes('5+ years') || jobDesc.includes('6 years') || jobDesc.includes('6+ years')
-            || jobDesc.includes('7 years') || jobDesc.includes('7+ years') || jobDesc.includes('8 years')
-            || jobDesc.includes('8+ years') || jobDesc.includes('jaar') || jobDesc.includes('ontwikkelingen')
-            || jobDesc.includes('ervaring') || jobDesc.includes('alle') || jobDesc.includes('systemen')
-            || jobDesc.includes(' du ') || jobDesc.includes('automatisierte') || jobDesc.includes(' die ')
-            || jobDesc.includes(' von ') || jobDesc.includes('testgetriebener') || jobDesc.includes(' der ')
+            // || jobTitle.includes('architect') || jobTitle.includes('lead') || jobTitle.includes('director')
+            // || jobTitle.includes('coach') || jobTitle.includes('master') || jobTitle.includes('specialist')
+            // || jobDesc.includes('4 years') || jobDesc.includes('4+ years') || jobDesc.includes('5 years')
+            // || jobDesc.includes('5+ years') || jobDesc.includes('6 years') || jobDesc.includes('6+ years')
+            // || jobDesc.includes('7 years') || jobDesc.includes('7+ years') || jobDesc.includes('8 years')
+            // || jobDesc.includes('8+ years')
+
+            // // filter by german and dutch
+            // || jobDesc.includes('jaar') || jobDesc.includes('ontwikkelingen')
+            // || jobDesc.includes('ervaring') || jobDesc.includes('alle') || jobDesc.includes('systemen')
+            // || jobDesc.includes(' du ') || jobDesc.includes('automatisierte') || jobDesc.includes(' die ')
+            // || jobDesc.includes(' von ') || jobDesc.includes('testgetriebener') || jobDesc.includes(' der ')
         ) { return false; }
+
         else {
             job.lastAdded = addedTime;
             return true;
         }
-        });
-
-    // console.log('Total Junior Jobs: ' + jrJobs.length);
+    });
+    console.log('Total Junior Jobs: ' + jrJobs.length);
 
     const success = await setAsync('github', JSON.stringify(jrJobs));
-
-    // console.log({ success });
+    console.log({ success });
 }
 
 fetchGithub();

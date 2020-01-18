@@ -12,6 +12,7 @@ body {
 
 .job:hover{
   cursor: pointer;
+  color: rgb(141, 141, 141);
 }
 
 .postedDay{

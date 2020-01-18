@@ -2,6 +2,19 @@ import React from 'react';
 import { Typography } from "@material-ui/core";
 import Job from "./Job";
 
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import MobileStepper from '@material-ui/core/MobileStepper';
+import Button from '@material-ui/core/Button';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+
+const useStyles = makeStyles({
+    root: {
+        maxWidth: 600,
+        flexGrow: 0.5,
+    },
+});
+
 // export default function Jobs({ jobs, lastFilteredJobs, handleClick, handleChange }) {
 
 //     let returnedJobs = lastFilteredJobs.length !== 0 ? lastFilteredJobs : jobs;
@@ -33,6 +46,18 @@ import Job from "./Job";
 
 export default function Jobs({ jobs }) {
 
+    const classes = useStyles();
+    const theme = useTheme();
+    const [activeStep, setActiveStep] = React.useState(0);
+
+    const handleNext = () => {
+        setActiveStep(prevActiveStep => prevActiveStep + 1);
+    };
+
+    const handleBack = () => {
+        setActiveStep(prevActiveStep => prevActiveStep - 1);
+    };
+
     jobs.map(job => {
 
         const date = job.created_at;
@@ -57,7 +82,7 @@ export default function Jobs({ jobs }) {
     });
 
     // sort jobs by diffdays
-    jobs.sort((a, b) => a.diffDays - b.diffDays );
+    jobs.sort((a, b) => a.diffDays - b.diffDays);
 
     // filter jobs which are not older than 60 days
     jobs = jobs.filter(job => {
@@ -67,16 +92,10 @@ export default function Jobs({ jobs }) {
         else return false;
     });
 
-    console.log(jobs)
+    let jobsPerPage = 10;
+    let jobOnPage = jobs.slice(activeStep * jobsPerPage, (activeStep + 1) * jobsPerPage);
 
-    // // filter dublicated jobs
-    // var result = jobs.reduce((unique, o) => {
-    //     if(!unique.some(obj => obj.id === o.id)) {
-    //       unique.push(o);
-    //     }
-    //     return unique;
-    // },[]);
-    // console.log(result)
+    console.log(jobs)
 
     return (
         <div className="jobs">
@@ -97,8 +116,31 @@ export default function Jobs({ jobs }) {
                 {jobs.length !== 0 ? 'Total ' + jobs.length + ' Jobs Listed' : null}
             </div>
             {
-                jobs.map((job, counter, diffDays) => <Job key={counter} job={job} counter={counter} diffDays={diffDays} />)
+                jobOnPage.map((job, counter, diffDays) => <Job key={counter + (activeStep) * jobsPerPage} job={job} counter={counter + (activeStep) * jobsPerPage} diffDays={diffDays} />)
             }
+
+            <div>
+                Page {activeStep + 1} of {Math.ceil(jobs.length / jobsPerPage)}
+            </div>
+            <MobileStepper
+                variant="progress"
+                steps={Math.ceil(jobs.length / jobsPerPage)}
+                position="static"
+                activeStep={activeStep}
+                className={classes.root}
+                nextButton={
+                    <Button size="small" onClick={handleNext} disabled={activeStep === Math.ceil(jobs.length / jobsPerPage) - 1}>
+                        Next
+          {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+                    </Button>
+                }
+                backButton={
+                    <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+                        {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+                        Back
+        </Button>
+                }
+            />
         </div>
     )
 }
