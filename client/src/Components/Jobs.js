@@ -66,6 +66,9 @@ export default function Jobs({ jobs }) {
         }
         else return false;
     });
+
+    console.log(jobs)
+
     // // filter dublicated jobs
     // var result = jobs.reduce((unique, o) => {
     //     if(!unique.some(obj => obj.id === o.id)) {
