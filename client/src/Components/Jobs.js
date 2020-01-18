@@ -84,7 +84,7 @@ export default function Jobs({ jobs }) {
     // sort jobs by diffdays
     jobs.sort((a, b) => a.diffDays - b.diffDays);
 
-    // filter jobs which are not older than 60 days
+    // filter jobs which are older than 60 days
     jobs = jobs.filter(job => {
         if (job.diffDays < 61) {
             return true;
@@ -100,7 +100,7 @@ export default function Jobs({ jobs }) {
     return (
         <div className="jobs">
             <Typography className="JobsTitle" variant='h3'>
-                Jobs
+                <a className="JobsTitle" href='/'>Jobs</a>
             </Typography>
             <br></br>
             <Typography variant='h5'>

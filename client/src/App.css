@@ -28,6 +28,7 @@ padding-top: 20px;
 
 .JobsTitle{
   color:rgb(104, 190, 107);
+  text-decoration: none;
 }
 
 .jobCount{
