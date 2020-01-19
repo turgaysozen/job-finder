@@ -19,7 +19,6 @@ export default function JobModel({ job, open, handleClose }) {
 
   return (
     <div>
-
       <Dialog
         fullWidth={true}
         maxWidth={'md'}
@@ -39,7 +38,6 @@ export default function JobModel({ job, open, handleClose }) {
           <DialogContentText id="alert-dialog-slide-description"
           dangerouslySetInnerHTML={{__html: job.description}}
           />
-
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

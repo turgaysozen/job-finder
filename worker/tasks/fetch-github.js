@@ -30,6 +30,9 @@ async function fetchGithub() {
         let jobDesc = job.description.toLowerCase();
         if (
             false
+
+            // TODO improve filter options
+
             // jobTitle.includes('senior') || jobTitle.includes('manager') || jobTitle.includes('sr.')
             // || jobTitle.includes('architect') || jobTitle.includes('lead') || jobTitle.includes('director')
             // || jobTitle.includes('coach') || jobTitle.includes('master') || jobTitle.includes('specialist')
@@ -51,6 +54,7 @@ async function fetchGithub() {
     return true;
 }
     });
+    
 console.log('Total Junior Jobs: ' + jrJobs.length);
 
 const success = await setAsync('github', JSON.stringify(jrJobs));

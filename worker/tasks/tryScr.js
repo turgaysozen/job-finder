@@ -1,5 +1,5 @@
 function tryScr(){
-    console.log('at 6 o clock');
+// scrape job from popular sources
 }
 
 tryScr();

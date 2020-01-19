@@ -1,7 +1,6 @@
+import React from 'react';
 import './App.css';
 import Jobs from "../src/Components/Jobs";
-
-import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -9,8 +8,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
-
 
 // let mockJobs = [];
 // let searchKeywords = [];
@@ -34,14 +31,11 @@ function App() {
   const [email, setEmail] = React.useState('');
   const errors = {}
 
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
-
   const handleClose = () => {
     setOpen(false);
   };
 
+  // submit user email address and check email validation
   const onSubmit = () => {
 
     if (email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
@@ -49,7 +43,7 @@ function App() {
 
       console.log(errors.email)
     }
-    else if(email === ''){
+    else if (email === '') {
       setOpen(true)
     }
     else setOpen(false);
@@ -58,12 +52,11 @@ function App() {
   React.useEffect(() => {
     JobFetch(updateJobs);
 
+    //it shows subscribe form to user 1 minute later and clear itself
     const inter = setInterval(() => {
       setOpen(true);
-
       clearInterval(inter);
-    }, 1000);
-
+    }, 1000 * 60);
 
   }, []);
 
@@ -71,11 +64,7 @@ function App() {
     <div className='App'>
       <Jobs jobs={jobList} />
       <div>
-        {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open form dialog
-      </Button> */}
         <form onSubmit={onSubmit}>
-
           <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
 
@@ -84,8 +73,7 @@ function App() {
                 Subscribe to get job list everyday, please enter your email address here.
               </DialogContentText>
               <div>
-
-                {/* TODO Validation message */}
+                {/* #TODO Validation message here */}
                 <TextField
                   placeholder="user@email.com"
                   autoFocus
@@ -94,7 +82,6 @@ function App() {
                   onInput={e => setEmail(e.target.value)}
                 />
               </div>
-
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose} color="primary">
@@ -109,7 +96,6 @@ function App() {
             </DialogActions>
           </Dialog>
         </form>
-
       </div>
     </div>
   )

@@ -112,6 +112,8 @@ export default function Jobs({ jobs }) {
 
     return (
         <div className="jobs">
+
+            {/* show job detail to user as popup */}
             <JobModel open={open} job={selectedJob} handleClose={handleClose} />
             <Typography className="JobsTitle" variant='h3'>
                 <a className="JobsTitle" href='/'>Jobs</a>
