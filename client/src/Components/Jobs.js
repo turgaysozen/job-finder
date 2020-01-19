@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography } from "@material-ui/core";
 import Job from "./Job";
+import JobModel from "./JobModel";
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
@@ -11,7 +12,7 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 const useStyles = makeStyles({
     root: {
         maxWidth: 600,
-        flexGrow: 0.5,
+        flexGrow: 1,
     },
 });
 
@@ -45,6 +46,18 @@ const useStyles = makeStyles({
 // }
 
 export default function Jobs({ jobs }) {
+
+    // job Model
+    const [open, setOpen] = React.useState(false);
+    const [selectedJob, selectJob] = React.useState({});
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     const classes = useStyles();
     const theme = useTheme();
@@ -99,6 +112,7 @@ export default function Jobs({ jobs }) {
 
     return (
         <div className="jobs">
+            <JobModel open={open} job={selectedJob} handleClose={handleClose} />
             <Typography className="JobsTitle" variant='h3'>
                 <a className="JobsTitle" href='/'>Jobs</a>
             </Typography>
@@ -116,7 +130,7 @@ export default function Jobs({ jobs }) {
                 {jobs.length !== 0 ? 'Total ' + jobs.length + ' Jobs Listed' : null}
             </div>
             {
-                jobOnPage.map((job, counter, diffDays) => <Job key={counter + (activeStep) * jobsPerPage} job={job} counter={counter + (activeStep) * jobsPerPage} diffDays={diffDays} />)
+                jobOnPage.map((job, counter, diffDays) => <Job handleClick={() => { handleClickOpen(); selectJob(job) }} key={counter + (activeStep) * jobsPerPage} job={job} counter={counter + (activeStep) * jobsPerPage} diffDays={diffDays} />)
             }
 
             <div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Paper, Typography } from "@material-ui/core";
 
-export default function Job({ job, counter }) {
+export default function Job({ job, counter, handleClick }) {
 
     // const date = job.created_at;
     // let month, day, year;
@@ -30,7 +30,7 @@ export default function Job({ job, counter }) {
                
                <Typography style={{ fontSize: '11px', marginTop: '10px' }}>Source: <a target='_blank' rel="noopener noreferrer" href={job.url}> Github</a></Typography> : ''}
 
-                <Paper style={{ backgroundColor: '#f1f1f1' }} className="job">
+                <Paper onClick={handleClick} style={{ backgroundColor: '#f1f1f1' }} className="job">
                     <div>
                         <Typography variant="h5">{job.title}</Typography>
                         <Typography variant="h6">{job.company}</Typography>
