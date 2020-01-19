@@ -105,7 +105,7 @@ export default function Jobs({ jobs }) {
         else return false;
     });
 
-    let jobsPerPage = 10;
+    let jobsPerPage = 10;   
     let jobOnPage = jobs.slice(activeStep * jobsPerPage, (activeStep + 1) * jobsPerPage);
 
     console.log(jobs)

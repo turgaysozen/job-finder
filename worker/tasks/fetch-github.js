@@ -29,8 +29,8 @@ async function fetchGithub() {
         let jobTitle = job.title.toLowerCase();
         let jobDesc = job.description.toLowerCase();
         if (
-
-            jobTitle.includes('senior') || jobTitle.includes('manager') || jobTitle.includes('sr.')
+            false
+            // jobTitle.includes('senior') || jobTitle.includes('manager') || jobTitle.includes('sr.')
             // || jobTitle.includes('architect') || jobTitle.includes('lead') || jobTitle.includes('director')
             // || jobTitle.includes('coach') || jobTitle.includes('master') || jobTitle.includes('specialist')
             // || jobDesc.includes('4 years') || jobDesc.includes('4+ years') || jobDesc.includes('5 years')
@@ -43,17 +43,18 @@ async function fetchGithub() {
             // || jobDesc.includes('ervaring') || jobDesc.includes('alle') || jobDesc.includes('systemen')
             // || jobDesc.includes(' du ') || jobDesc.includes('automatisierte') || jobDesc.includes(' die ')
             // || jobDesc.includes(' von ') || jobDesc.includes('testgetriebener') || jobDesc.includes(' der ')
-        ) { return false; }
+        ) { return false;
+}
 
         else {
-            job.lastAdded = addedTime;
-            return true;
-        }
+    job.lastAdded = addedTime;
+    return true;
+}
     });
-    console.log('Total Junior Jobs: ' + jrJobs.length);
+console.log('Total Junior Jobs: ' + jrJobs.length);
 
-    const success = await setAsync('github', JSON.stringify(jrJobs));
-    console.log({ success });
+const success = await setAsync('github', JSON.stringify(jrJobs));
+console.log({ success });
 
 }
 

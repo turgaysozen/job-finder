@@ -1,6 +1,16 @@
-import React from 'react';
 import './App.css';
 import Jobs from "../src/Components/Jobs";
+
+import React from 'react';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
+
 
 // let mockJobs = [];
 // let searchKeywords = [];
@@ -18,14 +28,89 @@ async function JobFetch(updateCb) {
 
 function App() {
 
+  const [open, setOpen] = React.useState(false);
+
   const [jobList, updateJobs] = React.useState([]);
+  const [email, setEmail] = React.useState('');
+  const errors = {}
+
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const onSubmit = () => {
+
+    if (email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+      errors.email = 'Invalid email address';
+
+      console.log(errors.email)
+    }
+    else if(email === ''){
+      setOpen(true)
+    }
+    else setOpen(false);
+  }
+
   React.useEffect(() => {
     JobFetch(updateJobs);
+
+    const inter = setInterval(() => {
+      setOpen(true);
+
+      clearInterval(inter);
+    }, 1000);
+
+
   }, []);
 
   return (
     <div className='App'>
       <Jobs jobs={jobList} />
+      <div>
+        {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+        Open form dialog
+      </Button> */}
+        <form onSubmit={onSubmit}>
+
+          <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+
+            <DialogContent>
+              <DialogContentText>
+                Subscribe to get job list everyday, please enter your email address here.
+              </DialogContentText>
+              <div>
+
+                {/* TODO Validation message */}
+                <TextField
+                  placeholder="user@email.com"
+                  autoFocus
+                  fullWidth
+                  value={email}
+                  onInput={e => setEmail(e.target.value)}
+                />
+              </div>
+
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} color="primary">
+                Cancel
+          </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={e => onSubmit(e)}>
+                submit
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </form>
+
+      </div>
     </div>
   )
 }
