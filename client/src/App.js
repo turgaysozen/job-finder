@@ -26,10 +26,9 @@ async function JobFetch(updateCb) {
 function App() {
 
   const [open, setOpen] = React.useState(false);
-
   const [jobList, updateJobs] = React.useState([]);
   const [email, setEmail] = React.useState('');
-  const errors = {}
+  let [errorText, helperText, label] = React.useState('');
 
   const handleClose = () => {
     setOpen(false);
@@ -39,24 +38,31 @@ function App() {
   const onSubmit = () => {
 
     if (email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
-      errors.email = 'Invalid email address';
-
-      console.log(errors.email)
+     
+      label="Error";
+      helperText="Invalid Email Address";
+      console.log(helperText)
     }
     else if (email === '') {
+
+      label="Error";
+      helperText="Invalid Email Address";
       setOpen(true)
     }
-    else setOpen(false);
+    else {
+      
+      label="";
+      helperText="";
+    }
   }
 
   React.useEffect(() => {
     JobFetch(updateJobs);
-
     //it shows subscribe form to user 1 minute later and clear itself
     const inter = setInterval(() => {
       setOpen(true);
       clearInterval(inter);
-    }, 1000 * 60);
+    }, 1000 * 1);
 
   }, []);
 
@@ -67,14 +73,16 @@ function App() {
         <form onSubmit={onSubmit}>
           <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
-
             <DialogContent>
               <DialogContentText>
                 Subscribe to get job list everyday, please enter your email address here.
               </DialogContentText>
               <div>
-                {/* #TODO Validation message here */}
+                {/* #TODO Validation message here -- check https://github.com/react-hook-form/react-hook-form-input */}
                 <TextField
+                  label={label}
+                  helperText={helperText}
+                  error
                   placeholder="user@email.com"
                   autoFocus
                   fullWidth
@@ -91,7 +99,7 @@ function App() {
                 variant="contained"
                 color="primary"
                 onClick={e => onSubmit(e)}>
-                submit
+                Submit
               </Button>
             </DialogActions>
           </Dialog>
