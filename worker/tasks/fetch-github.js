@@ -54,6 +54,7 @@ async function fetchGithub() {
 
     const success = await setAsync('github', JSON.stringify(jrJobs));
     console.log({ success });
+
 }
 
 fetchGithub();
