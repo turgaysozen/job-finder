@@ -32,12 +32,12 @@ export default function JobModel({ job, open, handleClose }) {
       >
         <DialogTitle id="alert-dialog-slide-title">
           <div>
-        <label style={{fontSize:'30px'}}>{job.title}</label>
-        {<img style={{ height: '40px', float: "right", marginRight:'50px' }} alt="" src={job.company_logo} />}
+            <label style={{ fontSize: '30px' }}>{job.title}</label>
+            {<img style={{ height: '40px', float: "right", marginRight: '50px' }} alt="" src={job.company_logo} />}
           </div></DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description"
-          dangerouslySetInnerHTML={{__html: job.description}}
+            dangerouslySetInnerHTML={{ __html: job.description + job.how_to_apply }}
           />
         </DialogContent>
         <DialogActions>

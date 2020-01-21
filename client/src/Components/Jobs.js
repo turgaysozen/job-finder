@@ -107,7 +107,7 @@ export default function Jobs({ jobs }) {
     });
 
     // pagination structure
-    let jobsPerPage = 10;   
+    let jobsPerPage = 10;
     let jobOnPage = jobs.slice(activeStep * jobsPerPage, (activeStep + 1) * jobsPerPage);
 
     console.log(jobs)
@@ -137,7 +137,7 @@ export default function Jobs({ jobs }) {
                 jobOnPage.map((job, counter, diffDays) => <Job handleClick={() => { handleClickOpen(); selectJob(job) }} key={counter + (activeStep) * jobsPerPage} job={job} counter={counter + (activeStep) * jobsPerPage} diffDays={diffDays} />)
             }
 
-                {/* pagination */}
+            {/* pagination */}
             <div>
                 Page {activeStep + 1} of {Math.ceil(jobs.length / jobsPerPage)}
             </div>
