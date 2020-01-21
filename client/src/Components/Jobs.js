@@ -48,9 +48,10 @@ const useStyles = makeStyles({
 export default function Jobs({ jobs }) {
 
     // job Model
-    const [open, setOpen] = React.useState(false);
     const [selectedJob, selectJob] = React.useState({});
 
+    // material ui pagination
+    const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -105,6 +106,7 @@ export default function Jobs({ jobs }) {
         else return false;
     });
 
+    // pagination structure
     let jobsPerPage = 10;   
     let jobOnPage = jobs.slice(activeStep * jobsPerPage, (activeStep + 1) * jobsPerPage);
 
@@ -135,6 +137,7 @@ export default function Jobs({ jobs }) {
                 jobOnPage.map((job, counter, diffDays) => <Job handleClick={() => { handleClickOpen(); selectJob(job) }} key={counter + (activeStep) * jobsPerPage} job={job} counter={counter + (activeStep) * jobsPerPage} diffDays={diffDays} />)
             }
 
+                {/* pagination */}
             <div>
                 Page {activeStep + 1} of {Math.ceil(jobs.length / jobsPerPage)}
             </div>

@@ -28,9 +28,11 @@ function App() {
   const [open, setOpen] = React.useState(false);
   const [jobList, updateJobs] = React.useState([]);
   const [email, setEmail] = React.useState('');
-  let [errorText, helperText, label] = React.useState('');
+
+  let [ helperText, label] = React.useState('');
 
   const handleClose = () => {
+    console.log(false)
     setOpen(false);
   };
 
@@ -50,7 +52,8 @@ function App() {
       setOpen(true)
     }
     else {
-      
+      setOpen(false)
+
       label="";
       helperText="";
     }
@@ -63,7 +66,6 @@ function App() {
       setOpen(true);
       clearInterval(inter);
     }, 1000 * 1);
-
   }, []);
 
   return (
@@ -80,9 +82,9 @@ function App() {
               <div>
                 {/* #TODO Validation message here -- check https://github.com/react-hook-form/react-hook-form-input */}
                 <TextField
-                  label={label}
-                  helperText={helperText}
-                  error
+                  // label={label}
+                  // helperText={helperText}
+                  // error
                   placeholder="user@email.com"
                   autoFocus
                   fullWidth

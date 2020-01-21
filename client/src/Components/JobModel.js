@@ -17,6 +17,7 @@ export default function JobModel({ job, open, handleClose }) {
     return <div></div>
   }
 
+  // pop-up job detail page
   return (
     <div>
       <Dialog

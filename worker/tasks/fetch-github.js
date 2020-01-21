@@ -8,7 +8,9 @@ const setAsync = promisify(client.set).bind(client);
 
 const baseUrl = 'https://jobs.github.com/positions.json';
 
-async function fetchGithub() {
+let jrJobs, callback;
+
+ async function fetchGithub() {
     let allJobs = [], onPage = 1;
 
     //fetch all pages from github
@@ -16,16 +18,16 @@ async function fetchGithub() {
         const res = await fetch(`${baseUrl}?page=${onPage}`);
         const jobs = await res.json();
         allJobs.push(...jobs);
-        console.log(jobs.length + ' added');
+        // console.log(jobs.length + ' added');
         onPage++;
     }
-    console.log('Total Jobs: ' + allJobs.length);
+    // console.log('Total Jobs: ' + allJobs.length);
 
     let addedTime = new Date();
     addedTime.setHours(addedTime.getHours() + 3);
 
     // filter only english mid level and junior jobs
-    const jrJobs = allJobs.filter(job => {
+    jrJobs = allJobs.filter(job => {
         let jobTitle = job.title.toLowerCase();
         let jobDesc = job.description.toLowerCase();
         if (
@@ -46,21 +48,36 @@ async function fetchGithub() {
             // || jobDesc.includes('ervaring') || jobDesc.includes('alle') || jobDesc.includes('systemen')
             // || jobDesc.includes(' du ') || jobDesc.includes('automatisierte') || jobDesc.includes(' die ')
             // || jobDesc.includes(' von ') || jobDesc.includes('testgetriebener') || jobDesc.includes(' der ')
-        ) { return false;
-}
+        ) {
+            return false;
+        }
 
         else {
-    job.lastAdded = addedTime;
-    return true;
-}
+            job.lastAdded = addedTime;
+            return true;
+        }
     });
-    
-console.log('Total Junior Jobs: ' + jrJobs.length);
 
-const success = await setAsync('github', JSON.stringify(jrJobs));
-console.log({ success });
+    callback(jrJobs);
+
+    // console.log('Total Junior Jobs: ' + jrJobs.length);
+
+    // const success = await setAsync('github', JSON.stringify(jrJobs));
+    // console.log({ success });
 
 }
+
+module.exports = {
+    fetchGithub: fetchGithub,
+    jrJobs:function(cb){
+        if(typeof jrJobs !== 'undefined'){
+            cb(jrJobs);
+        } else {
+            callback = cb;
+        }
+}
+}
+// module.exports = fetchGithub.jrJobs;
 
 fetchGithub();
-module.exports = fetchGithub;
+// module.exports = fetchGithub;
