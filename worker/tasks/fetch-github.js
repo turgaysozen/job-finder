@@ -11,7 +11,7 @@ const baseUrl = 'https://jobs.github.com/positions.json';
 let jrJobs, callback;
 
  async function fetchGithub() {
-    let allJobs = [], onPage = 1;
+    let allJobs = [], onPage = 0;
 
     //fetch all pages from github
     while (onPage < 3) {

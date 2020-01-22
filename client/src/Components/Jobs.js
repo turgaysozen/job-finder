@@ -110,13 +110,18 @@ export default function Jobs({ jobs }) {
     let jobsPerPage = 10;
     let jobOnPage = jobs.slice(activeStep * jobsPerPage, (activeStep + 1) * jobsPerPage);
 
-    console.log(jobs)
+    // get how to apply link
+    let howToApplyStr = null;
+    if(selectedJob.how_to_apply !== undefined){
+
+        howToApplyStr = selectedJob.how_to_apply.split('"')[1];
+    }
 
     return (
         <div className="jobs">
 
             {/* show job detail to user as popup */}
-            <JobModel open={open} job={selectedJob} handleClose={handleClose} />
+            <JobModel open={open} job={selectedJob} handleClose={handleClose} howToApplyStr={howToApplyStr} />
             <Typography className="JobsTitle" variant='h3'>
                 <a className="JobsTitle" href='/'>Jobs</a>
             </Typography>

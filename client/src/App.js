@@ -29,7 +29,7 @@ function App() {
   const [jobList, updateJobs] = React.useState([]);
   const [email, setEmail] = React.useState('');
 
-  let [ helperText, label] = React.useState('');
+  let [helperText, label] = React.useState('');
 
   const handleClose = () => {
     console.log(false)
@@ -40,22 +40,22 @@ function App() {
   const onSubmit = () => {
 
     if (email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
-     
-      label="Error";
-      helperText="Invalid Email Address";
+
+      label = "Error";
+      helperText = "Invalid Email Address";
       console.log(helperText)
     }
     else if (email === '') {
 
-      label="Error";
-      helperText="Invalid Email Address";
+      label = "Error";
+      helperText = "Invalid Email Address";
       setOpen(true)
     }
     else {
       setOpen(false)
-
-      label="";
-      helperText="";
+      console.log(email)
+      label = "";
+      helperText = "";
     }
   }
 
@@ -65,7 +65,7 @@ function App() {
     const inter = setInterval(() => {
       setOpen(true);
       clearInterval(inter);
-    }, 1000 * 1);
+    }, 1000 * 60);
   }, []);
 
   return (
@@ -82,7 +82,7 @@ function App() {
               <div>
                 {/* #TODO Validation message here -- check https://github.com/react-hook-form/react-hook-form-input */}
                 <TextField
-                  // label={label}
+                  label={label}
                   // helperText={helperText}
                   // error
                   placeholder="user@email.com"

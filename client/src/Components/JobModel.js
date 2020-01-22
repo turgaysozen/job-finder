@@ -11,7 +11,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function JobModel({ job, open, handleClose }) {
+export default function JobModel({ job, open, handleClose, howToApplyStr }) {
 
   if (job.title === '') {
     return <div></div>
@@ -37,7 +37,7 @@ export default function JobModel({ job, open, handleClose }) {
           </div></DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description"
-            dangerouslySetInnerHTML={{ __html: job.description + job.how_to_apply }}
+            dangerouslySetInnerHTML={{ __html: job.description }}
           />
         </DialogContent>
         <DialogActions>
@@ -45,7 +45,7 @@ export default function JobModel({ job, open, handleClose }) {
             Close
           </Button>
           <Button color="primary">
-            <a target={'_blank'} href={job.url}>Apply</a>
+            <a target={'_blank'} href={howToApplyStr}>Apply</a>
           </Button>
         </DialogActions>
       </Dialog>
