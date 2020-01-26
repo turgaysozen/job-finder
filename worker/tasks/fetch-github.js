@@ -10,7 +10,7 @@ const baseUrl = 'https://jobs.github.com/positions.json';
 
 let jrJobs, callback;
 
- async function fetchGithub() {
+async function fetchGithub() {
     let allJobs = [], onPage = 0;
 
     //fetch all pages from github
@@ -18,10 +18,8 @@ let jrJobs, callback;
         const res = await fetch(`${baseUrl}?page=${onPage}`);
         const jobs = await res.json();
         allJobs.push(...jobs);
-        // console.log(jobs.length + ' added');
         onPage++;
     }
-    // console.log('Total Jobs: ' + allJobs.length);
 
     let addedTime = new Date();
     addedTime.setHours(addedTime.getHours() + 3);
@@ -31,7 +29,7 @@ let jrJobs, callback;
         let jobTitle = job.title.toLowerCase();
         let jobDesc = job.description.toLowerCase();
         if (
-            false
+            
 
             // TODO improve filter options
 
@@ -43,11 +41,11 @@ let jrJobs, callback;
             // || jobDesc.includes('7 years') || jobDesc.includes('7+ years') || jobDesc.includes('8 years')
             // || jobDesc.includes('8+ years')
 
-            // // filter by german and dutch
-            // || jobDesc.includes('jaar') || jobDesc.includes('ontwikkelingen')
-            // || jobDesc.includes('ervaring') || jobDesc.includes('alle') || jobDesc.includes('systemen')
-            // || jobDesc.includes(' du ') || jobDesc.includes('automatisierte') || jobDesc.includes(' die ')
-            // || jobDesc.includes(' von ') || jobDesc.includes('testgetriebener') || jobDesc.includes(' der ')
+            // filter by german and dutch
+             jobDesc.includes('jaar') || jobDesc.includes('ontwikkelingen')
+            || jobDesc.includes('ervaring') || jobDesc.includes('alle') || jobDesc.includes('systemen')
+            || jobDesc.includes(' du ') || jobDesc.includes('automatisierte') || jobDesc.includes(' die ')
+            || jobDesc.includes(' von ') || jobDesc.includes('testgetriebener') || jobDesc.includes(' der ')
         ) {
             return false;
         }
@@ -58,7 +56,12 @@ let jrJobs, callback;
         }
     });
 
-    callback(jrJobs);
+    // remove dublicated items
+    const unique = [...new Map(jrJobs.map(item =>
+        [item["id"], item])).values()];
+
+    callback(unique);
+
 
     // console.log('Total Junior Jobs: ' + jrJobs.length);
 
@@ -69,13 +72,13 @@ let jrJobs, callback;
 
 module.exports = {
     fetchGithub: fetchGithub,
-    jrJobs:function(cb){
-        if(typeof jrJobs !== 'undefined'){
-            cb(jrJobs);
+    jrJobs: function (cb) {
+        if (typeof unique !== 'undefined') {
+            cb(unique);
         } else {
             callback = cb;
         }
-}
+    }
 }
 // module.exports = fetchGithub.jrJobs;
 

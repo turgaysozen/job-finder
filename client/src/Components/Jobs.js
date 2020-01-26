@@ -74,24 +74,30 @@ export default function Jobs({ jobs }) {
 
     jobs.map(job => {
 
-        const date = job.created_at;
-        let month, day, year;
+        // const date = job.created_at;
+        // let month, day, year;
 
-        // find job posted month / day / year
-        month = date.split(' ')[1];
-        day = date.split(' ')[2];
-        year = date.split(' ')[5];
+        // // find job posted month / day / year
+        // month = date.split(' ')[1];
+        // day = date.split(' ')[2];
+        // year = date.split(' ')[5];
 
-        // find posted month
-        const monthShortNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        month = monthShortNames.findIndex(m => m === month);
+        // // find posted month
+        // const monthShortNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        //     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        // month = monthShortNames.findIndex(m => m === month);
 
-        // find difference between today and posted day
+        // // find difference between today and posted day
+        // const d = new Date();
+        // const Date1 = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+        // const Date2 = new Date(year, month, day);
+        // const diffDays = Math.floor((Date1.getTime() - Date2.getTime()) / (1000 * 60 * 60 * 24));
+        // return job.diffDays = diffDays;
+
         const d = new Date();
-        const Date1 = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-        const Date2 = new Date(year, month, day);
-        const diffDays = Math.floor((Date1.getTime() - Date2.getTime()) / (1000 * 60 * 60 * 24));
+        const Date1 = new Date(d.toString()).getTime();
+        const Date2 = new Date(job.lastAdded).getTime();
+        const diffDays = Math.floor((Date1 - Date2) / (1000 * 60 * 60 * 24));
         return job.diffDays = diffDays;
     });
 
@@ -100,22 +106,26 @@ export default function Jobs({ jobs }) {
 
     // filter jobs which are older than 60 days
     jobs = jobs.filter(job => {
-        if (job.diffDays < 61) {
+        if (job.diffDays < 101) {
             return true;
         }
         else return false;
     });
 
     // pagination structure
-    let jobsPerPage = 10;
+    let jobsPerPage = 50;
     let jobOnPage = jobs.slice(activeStep * jobsPerPage, (activeStep + 1) * jobsPerPage);
 
     // get how to apply link
     let howToApplyStr = null;
-    if(selectedJob.how_to_apply !== undefined){
-
-        howToApplyStr = selectedJob.how_to_apply.split('"')[1];
+    if (selectedJob.how_to_apply !== undefined) {
+        if (selectedJob.how_to_apply === '') {
+            howToApplyStr = selectedJob.url;
+        }
+        else howToApplyStr = selectedJob.how_to_apply.split('"')[1];
     }
+
+    console.log(jobs)
 
     return (
         <div className="jobs">
