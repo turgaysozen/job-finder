@@ -113,7 +113,7 @@ export default function Jobs({ jobs }) {
     });
 
     // pagination structure
-    let jobsPerPage = 50;
+    let jobsPerPage = 25;
     let jobOnPage = jobs.slice(activeStep * jobsPerPage, (activeStep + 1) * jobsPerPage);
 
     // get how to apply link

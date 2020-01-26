@@ -15,10 +15,15 @@ async function fetchGithub() {
 
     //fetch all pages from github
     while (onPage < 3) {
-        const res = await fetch(`${baseUrl}?page=${onPage}`);
-        const jobs = await res.json();
-        allJobs.push(...jobs);
-        onPage++;
+        try {
+            const res = await fetch(`${baseUrl}?page=${onPage}`);
+            const jobs = await res.json();
+            allJobs.push(...jobs);
+            onPage++;
+        } catch {
+            onPage = 0;
+            allJobs = [];
+        }
     }
 
     let addedTime = new Date();
@@ -29,7 +34,7 @@ async function fetchGithub() {
         let jobTitle = job.title.toLowerCase();
         let jobDesc = job.description.toLowerCase();
         if (
-            
+
 
             // TODO improve filter options
 
@@ -42,7 +47,7 @@ async function fetchGithub() {
             // || jobDesc.includes('8+ years')
 
             // filter by german and dutch
-             jobDesc.includes('jaar') || jobDesc.includes('ontwikkelingen')
+            jobDesc.includes('jaar') || jobDesc.includes('ontwikkelingen')
             || jobDesc.includes('ervaring') || jobDesc.includes('alle') || jobDesc.includes('systemen')
             || jobDesc.includes(' du ') || jobDesc.includes('automatisierte') || jobDesc.includes(' die ')
             || jobDesc.includes(' von ') || jobDesc.includes('testgetriebener') || jobDesc.includes(' der ')

@@ -55,6 +55,8 @@ async function tryScr() {
 
                 const cat = item.categories;
                 let tags = '';
+                const newDesc = item.content;
+                const replacedDesc = newDesc.replace(/^(<br\s*\/?>)*|(<br\s*\/?>)*$/i, "");
 
                 if (item.categories !== undefined) {
                     cat.forEach(tag => {
@@ -71,7 +73,7 @@ async function tryScr() {
                     company_url: '',
                     location: location,
                     title: item.title.split(' at ')[0],
-                    description: item.contentSnippet,
+                    description: replacedDesc,
                     how_to_apply: '',
                     company_logo: '',
                     lastAdded: item.isoDate,
@@ -86,9 +88,87 @@ async function tryScr() {
     // const success = await setAsync('scraped', JSON.stringify(scrapedObj));
 
     var jrJobsImported = require("./fetch-github.js").jrJobs;
+
     jrJobsImported(async (jrJobs) => {
 
+        // add tag
+        jrJobs.map(job => {
+            let tags = '';
+            const desc = job.description.toLowerCase();
+            if (desc.includes('react')) {
+                tags += 'react';
+            }
+            if (desc.includes('node')) {
+                tags += ' ,' + 'node';
+            }
+            if (desc.includes('javascript')) {
+                tags += ' ,' + 'javascript';
+            }
+            if (desc.includes('java')) {
+                tags += ' ,' + 'java';
+            }
+            if (desc.includes('python')) {
+                tags += ' ,' + 'python';
+            }
+            if (desc.includes('postgresql')) {
+                tags += ' ,' + 'postgresql';
+            }
+            if (desc.includes('mysql')) {
+                tags += ' ,' + 'mysql';
+            }
+            if (desc.includes('nosql')) {
+                tags += ' ,' + 'nosql';
+            }
+            if (desc.includes('redis')) {
+                tags += ' ,' + 'redis';
+            }
+            if (desc.includes('mongodb')) {
+                tags += ' ,' + 'mongodb';
+            }
+            if (desc.includes('c#')) {
+                tags += ' ,' + 'c#';
+            }
+            if (desc.includes('c++')) {
+                tags += ' ,' + 'c++';
+            }
+            if (desc.includes('android')) {
+                tags += ' ,' + 'android';
+            }
+            if (desc.includes('ios')) {
+                tags += ' ,' + 'ios';
+            }
+            if (desc.includes('ruby')) {
+                tags += ' ,' + 'ruby';
+            }
+            if (desc.includes('aws')) {
+                tags += ' ,' + 'aws';
+            }
+            if (desc.includes('ui')) {
+                tags += ' ,' + 'ui';
+            }
+            if (desc.includes('ux')) {
+                tags += ' ,' + 'ux';
+            }
+            if (desc.includes('api')) {
+                tags += ' ,' + 'api';
+            }
+            if (desc.includes('php')) {
+                tags += ' ,' + 'php';
+            }
+            if (desc.includes('devops')) {
+                tags += ' ,' + 'devops';
+            }
+            if (desc.includes('machine learning')) {
+                tags += ' ,' + 'machine learning';
+            }
 
+            // remove comma from the tag
+            if(tags.charAt(1) === ','){
+                tags = tags.substr(2);
+            }
+
+            job.categories = tags;
+        });
         console.log('Imported Jobs Count :' + jrJobs.length)
         console.log('Scraped Jobs Count : ' + allJobs.length);
 
@@ -100,7 +180,6 @@ async function tryScr() {
         console.log({ success })
 
     });
-
 
     // const success = await setAsync('mergedJobs', JSON.stringify(mergedJobs));
 }
