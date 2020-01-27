@@ -18,14 +18,18 @@ app.get('/jobs', async (req, res) => {
     return res.send(mergedJobs);
 });
 
-app.get('/jsonformat', async (req, res) => {
+app.get('/jobs/page=:id', async (req, res) => {
     
     // const jobsGithub = await getAsync('github');
     const mergedJobs = await getAsync('mergedJobs');
 
+    let page = req.params.id;
+    const jsonData = JSON.parse(mergedJobs);
+    let fiftieth =jsonData.slice((page - 1) * 50, page * 50);
+
     // add header 
     res.set("Content-Type",'application/json');
-    res.send(mergedJobs);
+    res.send(fiftieth);
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

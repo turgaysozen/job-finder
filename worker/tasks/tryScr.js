@@ -1,4 +1,3 @@
-var fetch = require('node-fetch');
 var redis = require("redis"),
     client = redis.createClient();
 
@@ -8,7 +7,6 @@ const setAsync = promisify(client.set).bind(client);
 const Parser = require('rss-parser');
 
 let parser = new Parser();
-let allJobs = [];
 
 const FEED_LIST = [
     'https://stackoverflow.com/jobs/feed',
@@ -17,6 +15,7 @@ const FEED_LIST = [
 
 async function tryScr() {
 
+    let allJobs = [];
     const result = FEED_LIST.map(async f => {
 
         let feed = await parser.parseURL(f);

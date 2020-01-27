@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const i = 'scraper'
 
 async function Scraper() {
 
@@ -16,7 +17,9 @@ async function Scraper() {
     //         `--load-extension=${pathToExtension}`
     //       ]
     // });
+    console.log(i)
 
 }
 
-Scraper();
+// Scraper();
+module.exports = Scraper;
