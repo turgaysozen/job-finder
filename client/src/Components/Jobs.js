@@ -63,6 +63,8 @@ export default function Jobs({ jobs }) {
     const classes = useStyles();
     const theme = useTheme();
     const [activeStep, setActiveStep] = React.useState(0);
+    const [search, setSearch] = React.useState('');
+    const [remote, setRemote] = React.useState(false);
 
     const handleNext = () => {
         setActiveStep(prevActiveStep => prevActiveStep + 1);
@@ -73,27 +75,6 @@ export default function Jobs({ jobs }) {
     };
 
     jobs.map(job => {
-
-        // const date = job.created_at;
-        // let month, day, year;
-
-        // // find job posted month / day / year
-        // month = date.split(' ')[1];
-        // day = date.split(' ')[2];
-        // year = date.split(' ')[5];
-
-        // // find posted month
-        // const monthShortNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-        //     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        // month = monthShortNames.findIndex(m => m === month);
-
-        // // find difference between today and posted day
-        // const d = new Date();
-        // const Date1 = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-        // const Date2 = new Date(year, month, day);
-        // const diffDays = Math.floor((Date1.getTime() - Date2.getTime()) / (1000 * 60 * 60 * 24));
-        // return job.diffDays = diffDays;
-
         const d = new Date();
         const Date1 = new Date(d.toString()).getTime();
         const Date2 = new Date(job.lastAdded).getTime();
@@ -104,17 +85,23 @@ export default function Jobs({ jobs }) {
     // sort jobs by diffdays
     jobs.sort((a, b) => a.diffDays - b.diffDays);
 
-    // filter jobs which are older than 60 days
-    jobs = jobs.filter(job => {
+    // filter jobs which are older than 100 days
+    let lastUpdated = '';
+    jobs = jobs.filter((job, x) => {
+
+        // calculate last update time
+        if (x === 0) {
+            const d = new Date();
+            const dateNow = d.toISOString();
+            const diffHours = Math.floor(Math.abs(new Date(dateNow).getTime() + 1000 * 60 * 60 * 3 - new Date(job.lastAdded).getTime()) / (1000 * 60 * 60));
+            lastUpdated = diffHours === 0 ? 1 : diffHours > 24 ? diffHours - 24 : diffHours;
+        }
+
         if (job.diffDays < 101) {
             return true;
         }
         else return false;
     });
-
-    // pagination structure
-    let jobsPerPage = 25;
-    let jobOnPage = jobs.slice(activeStep * jobsPerPage, (activeStep + 1) * jobsPerPage);
 
     // get how to apply link
     let howToApplyStr = null;
@@ -125,23 +112,60 @@ export default function Jobs({ jobs }) {
         else howToApplyStr = selectedJob.how_to_apply.split('"')[1];
     }
 
+    // filter option
+    jobs = jobs.filter(job => {
+        const desc = job.description.toLowerCase();
+        if (desc.includes(search)) {
+            return true;
+        }
+        else return false;
+    })
+
+    if (remote) {
+        jobs = jobs.filter(job => {
+
+            const title = job.title.toLowerCase();
+            const location = job.location !== undefined ? job.location.toLowerCase() : '';
+            if (title.includes('remote') || location.includes('remote')) {
+                return true;
+            }
+            else return false;
+        })
+    }
     console.log(jobs)
+    // pagination structure
+    let jobsPerPage = 25;
+    let jobOnPage = jobs.slice(activeStep * jobsPerPage, (activeStep + 1) * jobsPerPage);
 
     return (
         <div className="jobs">
 
             {/* show job detail to user as popup */}
             <JobModel open={open} job={selectedJob} handleClose={handleClose} howToApplyStr={howToApplyStr} />
-            <Typography className="JobsTitle" variant='h3'>
+            <Typography className="JobsTitle" variant='h2'>
                 <a className="JobsTitle" href='/'>Jobs</a>
             </Typography>
             <br></br>
-            <Typography variant='h5'>
+
+            <Typography style={{ fontSize: '28px', marginTop: '20px', marginBottom: '10px' }}>
                 Options
             </Typography>
-            <div className="jobfilter">
-                <label><input type="checkbox" /> Remote</label>
-                <input placeholder="search job" />
+            <Typography className="jobfilter">
+
+                <label><input onClick={() => setRemote(!remote)} type="checkbox" /> Remote</label>
+                <input onInput={e => setSearch(e.target.value)} placeholder="search job" />
+                {/* <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={e => setSearch(e)}>
+                    Search
+              </Button> */}
+            </Typography>
+            <div className="updateInfo">
+                <b>
+                    Last Updated: {lastUpdated === 1 ? lastUpdated + ' Hour Ago' : lastUpdated + ' Hours Ago'}
+
+                </b>
             </div>
             <hr />
 

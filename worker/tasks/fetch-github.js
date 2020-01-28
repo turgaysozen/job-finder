@@ -61,11 +61,7 @@ async function fetchGithub() {
         }
     });
 
-    // remove dublicated items
-    const unique = [...new Map(jrJobs.map(item =>
-        [item["id"], item])).values()];
-
-    callback(unique);
+    callback(jrJobs);
 
 
     // console.log('Total Junior Jobs: ' + jrJobs.length);
@@ -78,8 +74,8 @@ async function fetchGithub() {
 module.exports = {
     fetchGithub: fetchGithub,
     jrJobs: function (cb) {
-        if (typeof unique !== 'undefined') {
-            cb(unique);
+        if (typeof jrJobs !== 'undefined') {
+            cb(jrJobs);
         } else {
             callback = cb;
         }

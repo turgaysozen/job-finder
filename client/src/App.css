@@ -34,14 +34,33 @@ padding-top: 20px;
 .jobCount{
   margin-bottom: 15px;
 }
+.jobfilter{
+  margin-top: 50px;
+}
+
+.jobfilter > button{
+font-size: 11px;
+margin-bottom: 7px;
+
+}
+
 .jobfilter > input{
 margin-left: 20px;
-font-size: 16px;
+font-size: 20px;
 border-radius: .2rem;
+margin-right: 10px;
+}
+
+.jobfilter > label {
+  font-size: 18px;
 }
 
 .tags{
   font-style: italic;
   padding-top: 5px;
   color:rgb(29, 161, 34);
+}
+.updateInfo{
+float: right;
+padding-left: 15px;
 }

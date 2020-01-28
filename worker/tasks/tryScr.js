@@ -35,6 +35,7 @@ async function tryScr() {
             // filter jobs by these keywords: japan, india and not english words
             const title = item.title.toLowerCase();
             const jobDesc = item.contentSnippet.toLowerCase();
+
             if (
                 title.includes('japan') || title.includes('india')
                 || jobDesc.includes('jaar') || jobDesc.includes('ontwikkelingen')
@@ -46,7 +47,7 @@ async function tryScr() {
                 || jobDesc.includes('técnico') || jobDesc.includes('contratar') || jobDesc.includes('salarial')
                 || jobDesc.includes('para') || jobDesc.includes('plataforma') || jobDesc.includes('nuevas')
                 || jobDesc.includes('estable') || jobDesc.includes('larga') || jobDesc.includes('cliente')
-
+                || jobDesc.includes('desarrollador') || jobDesc.includes('incorporar') || jobDesc.includes('posteriores') || jobDesc.includes('profesionales')
             ) {
                 return false;
             }
@@ -98,72 +99,72 @@ async function tryScr() {
                 tags += 'react';
             }
             if (desc.includes('node')) {
-                tags += ' ,' + 'node';
+                tags += ', ' + 'node';
             }
             if (desc.includes('javascript')) {
-                tags += ' ,' + 'javascript';
+                tags += ', ' + 'javascript';
             }
-            if (desc.includes('java')) {
-                tags += ' ,' + 'java';
+            if (desc.includes(' java ') || desc.includes('java ')) {
+                tags += ', ' + 'java';
             }
             if (desc.includes('python')) {
-                tags += ' ,' + 'python';
+                tags += ', ' + 'python';
             }
             if (desc.includes('postgresql')) {
-                tags += ' ,' + 'postgresql';
+                tags += ', ' + 'postgresql';
             }
             if (desc.includes('mysql')) {
-                tags += ' ,' + 'mysql';
+                tags += ', ' + 'mysql';
             }
             if (desc.includes('nosql')) {
-                tags += ' ,' + 'nosql';
+                tags += ', ' + 'nosql';
             }
             if (desc.includes('redis')) {
-                tags += ' ,' + 'redis';
+                tags += ', ' + 'redis';
             }
             if (desc.includes('mongodb')) {
-                tags += ' ,' + 'mongodb';
+                tags += ', ' + 'mongodb';
             }
             if (desc.includes('c#')) {
-                tags += ' ,' + 'c#';
+                tags += ', ' + 'c#';
             }
             if (desc.includes('c++')) {
-                tags += ' ,' + 'c++';
+                tags += ', ' + 'c++';
             }
             if (desc.includes('android')) {
-                tags += ' ,' + 'android';
+                tags += ', ' + 'android';
             }
             if (desc.includes('ios')) {
-                tags += ' ,' + 'ios';
+                tags += ', ' + 'ios';
             }
             if (desc.includes('ruby')) {
-                tags += ' ,' + 'ruby';
+                tags += ', ' + 'ruby';
             }
             if (desc.includes('aws')) {
-                tags += ' ,' + 'aws';
+                tags += ', ' + 'aws';
             }
             if (desc.includes('ui')) {
-                tags += ' ,' + 'ui';
+                tags += ', ' + 'ui';
             }
             if (desc.includes('ux')) {
-                tags += ' ,' + 'ux';
+                tags += ', ' + 'ux';
             }
             if (desc.includes('api')) {
-                tags += ' ,' + 'api';
+                tags += ', ' + 'api';
             }
             if (desc.includes('php')) {
-                tags += ' ,' + 'php';
+                tags += ', ' + 'php';
             }
             if (desc.includes('devops')) {
-                tags += ' ,' + 'devops';
+                tags += ', ' + 'devops';
             }
             if (desc.includes('machine learning')) {
-                tags += ' ,' + 'machine learning';
+                tags += ', ' + 'machine learning';
             }
 
             // remove comma from the tag
-            if(tags.charAt(1) === ','){
-                tags = tags.substr(2);
+            if (tags.charAt(0) === ',') {
+                tags = tags.substr(1);
             }
 
             job.categories = tags;
@@ -175,7 +176,13 @@ async function tryScr() {
 
         console.log('Merged Jobs Count: ' + allJobs.length);
 
-        const success = await setAsync('mergedJobs', JSON.stringify(allJobs));
+        // remove dublicated items
+        const unique = [...new Map(allJobs.map(item =>
+            [item["id"], item])).values()];
+
+        console.log('Merged all unique: ' + unique.length)
+
+        const success = await setAsync('mergedJobs', JSON.stringify(unique));
         console.log({ success })
 
     });
