@@ -68,10 +68,12 @@ export default function Jobs({ jobs }) {
 
     const handleNext = () => {
         setActiveStep(prevActiveStep => prevActiveStep + 1);
+        window.scrollTo(0,0);
     };
 
     const handleBack = () => {
         setActiveStep(prevActiveStep => prevActiveStep - 1);
+        window.scrollTo(0,0);
     };
 
     jobs.map(job => {
@@ -115,7 +117,7 @@ export default function Jobs({ jobs }) {
     // filter option
     jobs = jobs.filter(job => {
         const desc = job.description.toLowerCase();
-        if (desc.includes(search)) {
+        if (desc.includes(search.toLocaleLowerCase())) {
             return true;
         }
         else return false;

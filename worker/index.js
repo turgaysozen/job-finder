@@ -9,4 +9,5 @@ async function RunCron() {
 
 }
 // cron runs schedule every 6 hours
-new CronJob('0 0 */6 * * *', RunCron, null, true, 'America/Los_Angeles');
+new CronJob('0 */6 * * *', RunCron, null, true, 'America/Los_Angeles');
+

@@ -33,20 +33,8 @@ async function fetchGithub() {
     jrJobs = allJobs.filter(job => {
         let jobTitle = job.title.toLowerCase();
         let jobDesc = job.description.toLowerCase();
+        // filter by german and dutch
         if (
-
-
-            // TODO improve filter options
-
-            // jobTitle.includes('senior') || jobTitle.includes('manager') || jobTitle.includes('sr.')
-            // || jobTitle.includes('architect') || jobTitle.includes('lead') || jobTitle.includes('director')
-            // || jobTitle.includes('coach') || jobTitle.includes('master') || jobTitle.includes('specialist')
-            // || jobDesc.includes('4 years') || jobDesc.includes('4+ years') || jobDesc.includes('5 years')
-            // || jobDesc.includes('5+ years') || jobDesc.includes('6 years') || jobDesc.includes('6+ years')
-            // || jobDesc.includes('7 years') || jobDesc.includes('7+ years') || jobDesc.includes('8 years')
-            // || jobDesc.includes('8+ years')
-
-            // filter by german and dutch
             jobDesc.includes('jaar') || jobDesc.includes('ontwikkelingen')
             || jobDesc.includes('ervaring') || jobDesc.includes('alle') || jobDesc.includes('systemen')
             || jobDesc.includes(' du ') || jobDesc.includes('automatisierte') || jobDesc.includes(' die ')
@@ -70,7 +58,7 @@ async function fetchGithub() {
     // console.log({ success });
 
 }
-
+fetchGithub();
 module.exports = {
     fetchGithub: fetchGithub,
     jrJobs: function (cb) {
@@ -81,7 +69,4 @@ module.exports = {
         }
     }
 }
-// module.exports = fetchGithub.jrJobs;
 
-fetchGithub();
-// module.exports = fetchGithub;

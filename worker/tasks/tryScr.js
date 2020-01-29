@@ -3,7 +3,6 @@ var redis = require("redis"),
 
 const { promisify } = require('util');
 const setAsync = promisify(client.set).bind(client);
-
 const Parser = require('rss-parser');
 
 let parser = new Parser();
@@ -13,12 +12,14 @@ const FEED_LIST = [
     'https://stackoverflow.com/jobs/feed?location=remote',
 ];
 
+let allJobs = [];
 async function tryScr() {
+    console.log('START')
 
-    let allJobs = [];
     const result = FEED_LIST.map(async f => {
 
-        let feed = await parser.parseURL(f);
+        while (allJobs.length === 0) {
+            let feed = await parser.parseURL(f);
         feed.items.forEach(item => {
             let newItem = {};
             let location = '';
@@ -83,7 +84,7 @@ async function tryScr() {
                 allJobs.push(newItem)
             }
         });
-    });
+    }
 
     // const success = await setAsync('scraped', JSON.stringify(scrapedObj));
 
@@ -169,6 +170,7 @@ async function tryScr() {
 
             job.categories = tags;
         });
+
         console.log('Imported Jobs Count :' + jrJobs.length)
         console.log('Scraped Jobs Count : ' + allJobs.length);
 
@@ -184,11 +186,9 @@ async function tryScr() {
 
         const success = await setAsync('mergedJobs', JSON.stringify(unique));
         console.log({ success })
-
     });
-
-    // const success = await setAsync('mergedJobs', JSON.stringify(mergedJobs));
+    });
 }
-
 tryScr();
 module.exports = tryScr;
+
