@@ -2,33 +2,6 @@ import React from 'react';
 import { Paper, Typography } from "@material-ui/core";
 
 export default function Job({ job, counter, handleClick }) {
-
-    // const date = job.created_at;
-    // let month, day, year;
-
-    // // find job posted month / day / year
-    // month = date.split(' ')[1];
-    // day = date.split(' ')[2];
-    // year = date.split(' ')[5];
-
-    // // find posted month
-    // const monthShortNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    //     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    // month = monthShortNames.findIndex(m => m === month);
-
-    // // find difference between today and posted day
-    // const d = new Date();
-    // const Date1 = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-    // const Date2 = new Date(year, month, day);
-    // const diffDays = Math.floor((Date1.getTime() - Date2.getTime()) / (1000 * 60 * 60 * 24));
-
-    // let categories = '';
-
-    // job.categories.map(element => {
-    //    return categories =+ element + ', ';
-    // });
-    // console.log(categories)
-
     return (
         <div>
             <Typography className="counter" variant="h6">{counter + 1}</Typography>
@@ -55,5 +28,4 @@ export default function Job({ job, counter, handleClick }) {
             </Paper >
         </div>
     )
-
 }

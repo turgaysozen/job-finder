@@ -2,7 +2,6 @@ import React from 'react';
 import { Typography } from "@material-ui/core";
 import Job from "./Job";
 import JobModel from "./JobModel";
-
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Button from '@material-ui/core/Button';
@@ -15,35 +14,6 @@ const useStyles = makeStyles({
         flexGrow: 1,
     },
 });
-
-// export default function Jobs({ jobs, lastFilteredJobs, handleClick, handleChange }) {
-
-//     let returnedJobs = lastFilteredJobs.length !== 0 ? lastFilteredJobs : jobs;
-
-//     return (
-//         <div className="jobs">
-//             <Typography className="JobsTitle" variant='h3'>
-//                 Jobs
-//             </Typography>
-//             <br></br>
-//             <Typography variant='h5'>
-//                 Options
-//             </Typography>
-//             <div className="jobfilter">
-//                 <label><input onClick={handleClick} style={{ fontSize: '13px', marginTop: '15px' }} type="checkbox" /> Remote</label>
-//                 <input onChange={handleChange} placeholder="search job" />
-//             </div>
-//             <hr />
-
-//             <div className="jobCount">
-//                 {returnedJobs.length !== 0 ? 'Total ' + returnedJobs.length + ' Jobs Listed' : null}
-//             </div>
-//             {
-//                 returnedJobs.map((job, counter) => <Job key={job.id} job={job} counter={counter} />)
-//             }
-//         </div>
-//     )
-// }
 
 export default function Jobs({ jobs }) {
 
@@ -66,14 +36,25 @@ export default function Jobs({ jobs }) {
     const [search, setSearch] = React.useState('');
     const [remote, setRemote] = React.useState(false);
 
+    // lift top
+    function scrollToTop(scrollDuration) {
+        var scrollStep = -window.scrollY / (scrollDuration / 15),
+            scrollInterval = setInterval(function () {
+                if (window.scrollY !== 0) {
+                    window.scrollBy(0, scrollStep);
+                }
+                else clearInterval(scrollInterval);
+            }, 15);
+    }
+
     const handleNext = () => {
         setActiveStep(prevActiveStep => prevActiveStep + 1);
-        window.scrollTo(0,0);
+        scrollToTop(300);
     };
 
     const handleBack = () => {
         setActiveStep(prevActiveStep => prevActiveStep - 1);
-        window.scrollTo(0,0);
+        scrollToTop(300);
     };
 
     jobs.map(job => {
@@ -117,7 +98,8 @@ export default function Jobs({ jobs }) {
     // filter option
     jobs = jobs.filter(job => {
         const desc = job.description.toLowerCase();
-        if (desc.includes(search.toLocaleLowerCase())) {
+        const title = job.title.toLowerCase();
+        if (desc.includes(search.toLocaleLowerCase()) || title.includes(search.toLocaleLowerCase())) {
             return true;
         }
         else return false;

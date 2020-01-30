@@ -28,7 +28,6 @@ async function fetchGithub() {
 
     let addedTime = new Date();
     addedTime.setHours(addedTime.getHours() + 3);
-
     // filter only english mid level and junior jobs
     jrJobs = allJobs.filter(job => {
         let jobTitle = job.title.toLowerCase();
@@ -49,24 +48,17 @@ async function fetchGithub() {
         }
     });
 
-    callback(jrJobs);
-
-
-    // console.log('Total Junior Jobs: ' + jrJobs.length);
-
-    // const success = await setAsync('github', JSON.stringify(jrJobs));
-    // console.log({ success });
-
+    callback(jrJobs, allJobs);
 }
 fetchGithub();
 module.exports = {
     fetchGithub: fetchGithub,
-    jrJobs: function (cb) {
+    githubJobs: function (cb) {
         if (typeof jrJobs !== 'undefined') {
-            cb(jrJobs);
+            cb(jrJobs, allJobs);
         } else {
             callback = cb;
         }
-    }
+    },
 }
 
