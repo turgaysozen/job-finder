@@ -3,6 +3,7 @@ var redis = require("redis"),
 
 const { promisify } = require('util');
 const setAsync = promisify(client.set).bind(client);
+
 const Parser = require('rss-parser');
 
 let parser = new Parser();
@@ -191,18 +192,8 @@ async function tryScr() {
             console.log('*** Merged All Jobs: ' + fullList.length);
             const successAllJobs = await setAsync('MergedAllJobs', JSON.stringify(fullList));
             console.log({successAllJobs});
-
         });
-        // Array.prototype.push.apply(allJobs, jrJobs);
-
-        // var allGithubJobsImported = require("./fetch-github.js").allGithubJobs;
-
-        // allGithubJobsImported(async (allGithubJobs) => {
-        //     console.log(allGithubJobs.length)
-
-        // });
     });
-
 }
 tryScr();
 module.exports = tryScr;
