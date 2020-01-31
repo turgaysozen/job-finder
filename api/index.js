@@ -25,7 +25,6 @@ app.get('/jobs', async (req, res) => {
 
 app.get('/jobs/page=:id', async (req, res) => {
 
-    // const jobsGithub = await getAsync('github');
     const mergedAllJobs = await getAsync('MergedAllJobs');
 
     let page = req.params.id;
