@@ -2,8 +2,10 @@ const express = require('express')
 const app = express()
 const port = process.env.PORT || 3001;
 
-var redis = require("redis");
-let client;
+// var redis = require("redis");
+// let client;
+
+var redis = require("redis").createClient();
 
 if (process.env.REDISTOGO_URL) {
     var rtg = require("url").parse(process.env.REDISTOGO_URL);
@@ -15,7 +17,7 @@ if (process.env.REDISTOGO_URL) {
 }
 
 const { promisify } = require('util');
-const getAsync = promisify(client.get).bind(client);
+const getAsync = promisify(redis.get).bind(redis);
 
 app.get('/jobs', async (req, res) => {
 
