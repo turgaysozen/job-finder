@@ -7,14 +7,14 @@ const port = process.env.PORT || 3001;
 
 var redis = require("redis").createClient();
 
-// if (process.env.REDISTOGO_URL) {
-//     var rtg = require("url").parse(process.env.REDISTOGO_URL);
-//     var redis = require("redis").createClient(rtg.port, rtg.hostname);
+if (process.env.REDISTOGO_URL) {
+    var rtg = require("url").parse(process.env.REDISTOGO_URL);
+    var redis = require("redis").createClient(rtg.port, rtg.hostname);
 
-//     redis.auth(rtg.auth.split(":")[1]);
-// } else {
-//     var redis = require("redis").createClient();
-// }
+    redis.auth(rtg.auth.split(":")[1]);
+} else {
+    var redis = require("redis").createClient();
+}
 
 const { promisify } = require('util');
 const getAsync = promisify(redis.get).bind(redis);
@@ -47,7 +47,5 @@ app.get('/jobs/apicall', async (req, res) => {
     res.send(`<h1>Api Call Page</h1><p>Total Jobs: ${totalJobsCount}, page count: ${Math.ceil(totalJobsCount / 50)} You can call jobs like: <b>http://localhost:3001/jobs/page=1</b></p>`);
 });
 
-// const port = process.env.PORT || 5000;
-// app.listen(port);
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
