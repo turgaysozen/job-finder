@@ -14,7 +14,7 @@ const FEED_LIST = [
 ];
 
 let allJobs = [];
-async function tryScr() {
+async function fetchStackoverflow() {
     let fullList = [];
     const result = FEED_LIST.map(async f => {
         while (allJobs.length === 0) {
@@ -88,8 +88,6 @@ async function tryScr() {
                 }
             });
         }
-
-        // const success = await setAsync('scraped', JSON.stringify(scrapedObj));
 
         var jrJobsImported = require("./fetch-github.js").githubJobs;
 
@@ -177,6 +175,7 @@ async function tryScr() {
             console.log('Imported Jobs Count :' + filteredGithubJobs.length)
             console.log('Scraped Jobs Count : ' + allJobs.length);
 
+            // combine stackoverflow jobs and github jobs
             Array.prototype.push.apply(allJobs, filteredGithubJobs);
             console.log('Merged Jobs Count: ' + allJobs.length);
 
@@ -188,6 +187,7 @@ async function tryScr() {
             // set data on redis
             const success = await setAsync('MergedAllUniqueJobs', JSON.stringify(unique));
             console.log({ success })
+
             Array.prototype.push.apply(fullList, allGithubJobs);
             console.log('*** Merged All Jobs: ' + fullList.length);
             const successAllJobs = await setAsync('MergedAllJobs', JSON.stringify(fullList));
@@ -195,6 +195,6 @@ async function tryScr() {
         });
     });
 }
-tryScr();
-module.exports = tryScr;
+fetchStackoverflow();
+module.exports = fetchStackoverflow;
 

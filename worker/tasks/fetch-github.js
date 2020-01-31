@@ -1,4 +1,3 @@
-
 var fetch = require('node-fetch');
 var redis = require("redis"),
     client = redis.createClient();

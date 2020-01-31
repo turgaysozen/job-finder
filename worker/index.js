@@ -1,11 +1,10 @@
 var CronJob = require('cron').CronJob;
 
 const scraper = require('../worker/tasks/fetch-github').fetchGithub;
-const tryScr = require('../worker/tasks/tryScr');
+const fetchStackoverflow = require('./tasks/fetch-stackoverflow');
 
 async function RunCron() {
-  scraper();
-  tryScr();
+  fetchStackoverflow();
 }
 // cron runs schedule every 6 hours
 new CronJob('0 */6 * * *', RunCron, null, true, 'America/Los_Angeles');
