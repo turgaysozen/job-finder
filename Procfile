@@ -1,1 +1,1 @@
-web:node worker index.js
+web: node api index.js
