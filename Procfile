@@ -1,1 +1,1 @@
-web: node api index.js
+web: set https=false&react-scripts start
