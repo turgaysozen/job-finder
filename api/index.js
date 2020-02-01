@@ -61,7 +61,6 @@ app.get('/jobs', async (req, res) => {
     // const mergedAllJobs = await getAsync('MergedAllJobs');
     // console.log(mergedAllJobs)
     // totalJobsCount = (JSON.parse(mergedAllJobs)).length;
-
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     res.send(mergedAllJobs);
 });

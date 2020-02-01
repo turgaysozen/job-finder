@@ -5,10 +5,9 @@
   "main": "index.js",
   "scripts": {
     "client-install": "npm install --prefix client",
-    "start": "node api index.js",
-    "server": "nodemon api index.js",
+    "server": "node api index.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev": "concurrently \"npm run server\" \"npm run client\" \"node worker index.js\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
@@ -24,5 +23,8 @@
     "redis-cli": "^1.4.0",
     "redis-server": "^1.2.2",
     "rss-parser": "^3.7.3"
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0"
   }
 }

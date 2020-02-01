@@ -12,8 +12,8 @@ async function JobFetch(updateCb) {
 }
 
 function App() {
-
   const [jobList, updateJobs] = React.useState([]);
+  console.log(jobList)
 
   // submit user email address and check email validation
   // const onSubmit = () => {
