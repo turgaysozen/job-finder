@@ -1,1 +1,0 @@
-web: set https=false&react-scripts start
