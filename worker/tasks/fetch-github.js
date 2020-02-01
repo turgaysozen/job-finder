@@ -1,9 +1,9 @@
 var fetch = require('node-fetch');
-var redis = require("redis"),
-    client = redis.createClient();
+// var redis = require("redis"),
+//     client = redis.createClient();
 
-const { promisify } = require('util');
-const setAsync = promisify(client.set).bind(client);
+// const { promisify } = require('util');
+// const setAsync = promisify(client.set).bind(client);
 
 const baseUrl = 'https://jobs.github.com/positions.json';
 
