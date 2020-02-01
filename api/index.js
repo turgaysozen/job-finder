@@ -3,7 +3,7 @@ const app = express()
 const path = require('path');
 
 // var redis = require("redis").createClient();
-var redis = require("redis"), redis_client = redis.createClient("redis://127.0.0.1:22318"); 
+var redis = require("redis"), redis_client = redis.createClient("redis://127.0.0.1:6379"); 
 
 if (process.env.REDISTOGO_URL) {
     var rtg = require("url").parse(process.env.REDISTOGO_URL);
