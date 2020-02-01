@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Jobs from "../src/Components/Jobs";
 
-const JOB_API_URL = 'http://localhost:3001/jobs';
+const JOB_API_URL = 'https://evening-river-70046.herokuapp.com/jobs';
 
 // fetch jobs by our api
 async function JobFetch(updateCb) {
