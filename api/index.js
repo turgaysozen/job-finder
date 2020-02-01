@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 const port = process.env.PORT || 3001;
 
+var jrJobsImported = require("../worker/tasks/fetch-github").githubJobs;
+
 // var redis = require("redis");
 // let client;
 
