@@ -2,11 +2,8 @@ const express = require('express')
 const app = express()
 const path = require('path');
 
-// var redis = require("redis");
-// let client;
-var RedisStore = require('connect-redis')(express);
-
-var redis = require("redis").createClient();
+// var redis = require("redis").createClient();
+var redis = require("redis"), redis_client = redis.createClient("redis://127.0.0.1:22318"); 
 
 if (process.env.REDISTOGO_URL) {
     var rtg = require("url").parse(process.env.REDISTOGO_URL);
@@ -55,22 +52,6 @@ if (process.env.NODE_ENV === 'production') {
         res.sendFile(path.resolve(__dirname, '../', 'client', 'build', 'index.html'));
     });
 }
-
-app.configure(function(){
-    app.set('views', __dirname + '/views');
-    console.log('views', __dirname + '/views');
-    app.set('view engine', 'jade'); //jade as template engine
-    app.use(express.favicon());
-    app.use(express.logger('dev'));
-    app.use(express.bodyParser());
-    app.use(express.methodOverride());
-    app.use(express.cookieParser());
-    app.use(express.session({
-        secret: "kqsdjfmlksdhfhzirzeoibrzecrbzuzefcuercazeafxzeokwdfzeijfxcerig",
-        store: new RedisStore({ host: 'localhost', port: 6379, client: redis })
-    }));
-    app.use(app.router);
-  });
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
