@@ -18,7 +18,7 @@ const path = require('path');
 // const { promisify } = require('util');
 // const getAsync = promisify(redis.get).bind(redis);
 
-let totalJobsCount = 0;
+// let totalJobsCount = 0;
 
 let mergedAllJobs = [
     {
