@@ -1,8 +1,6 @@
 const express = require('express')
 const app = express()
-const port = process.env.PORT || 3001;
-
-var jrJobsImported = require("../worker/tasks/fetch-github").githubJobs;
+const path = require('path');
 
 // var redis = require("redis");
 // let client;
@@ -85,5 +83,13 @@ app.get('/jobs', async (req, res) => {
 //     res.send(`<h1>Api Call Page</h1><p>Total Jobs: ${totalJobsCount}, page count: ${Math.ceil(totalJobsCount / 50)} You can call jobs like: <b>http://localhost:3001/jobs/page=1</b></p>`);
 // });
 
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('../client/build'));
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, '../', 'client', 'build', 'index.html'));
+    });
+}
+
+const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
