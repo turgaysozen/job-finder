@@ -5,7 +5,6 @@ const { promisify } = require('util');
 const setAsync = promisify(client.set).bind(client);
 
 const Parser = require('rss-parser');
-
 let parser = new Parser();
 
 const FEED_LIST = [
