@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const path = require('path');
 
-var redis = require("redis").createClient();
+// var redis = require("redis").createClient();
 
 // if (process.env.REDISTOGO_URL) {
 //     var rtg = require("url").parse(process.env.REDISTOGO_URL);
@@ -12,57 +12,90 @@ var redis = require("redis").createClient();
 //     var redis = require("redis").createClient();
 // }
 
-const { promisify } = require('util');
-const getAsync = promisify(redis.get).bind(redis);
+// const { promisify } = require('util');
+// const getAsync = promisify(redis.get).bind(redis);
 
+let jsonData = [
+    {
+        id: 1,
+        type: "null",
+        url: "null",
+        created_at: "Sat Feb 01 12:53:36 UTC 2020",
+        company: "no title",
+        company_url: '',
+        location: "null",
+        title: "no title",
+        description: "",
+        how_to_apply: '',
+        company_logo: '',
+        lastAdded: "Sat Feb 01 12:53:36 UTC 2020",
+        categories: "",
+        pubDate: "Sat Feb 01 12:53:36 UTC 2020",
+    },{
+        id: 2,
+        type: "null",
+        url: "null",
+        created_at: "Sat Feb 01 12:53:36 UTC 2020",
+        company: "no title",
+        company_url: '',
+        location: "null",
+        title: "no title",
+        description: "",
+        how_to_apply: '',
+        company_logo: '',
+        lastAdded: "Sat Feb 01 12:53:36 UTC 2020",
+        categories: "",
+        pubDate: "Sat Feb 01 12:53:36 UTC 2020",
+    }
+]
 
 let totalJobsCount;
 
 app.get('/jobs', async (req, res) => {
 
-    const mergedJobs = await getAsync('MergedAllUniqueJobs');
-    const mergedAllJobs = await getAsync('MergedAllJobs');
-    const jsonData = JSON.parse(mergedJobs);
+    // const mergedJobs = await getAsync('MergedAllUniqueJobs');
+    // const mergedAllJobs = await getAsync('MergedAllJobs');
+    // const jsonData = JSON.parse(mergedJobs);
 
     // console.log(mergedAllJobs)
-    totalJobsCount = (JSON.parse(mergedAllJobs)).length;
+    // totalJobsCount = (JSON.parse(mergedAllJobs)).length;
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     res.send(jsonData);
 });
 
-app.get('/jobs/page=:id', async (req, res) => {
+// app.get('/jobs/page=:id', async (req, res) => {
 
-    const mergedAllJobs = await getAsync('MergedAllJobs');
+//     // const mergedAllJobs = await getAsync('MergedAllJobs');
 
-    let page = req.params.id;
-    const jsonData = JSON.parse(mergedAllJobs);
-    let fiftieth = jsonData.slice((page - 1) * 50, page * 50);
+//     let page = req.params.id;
+//     const jsonData = JSON.parse(mergedAllJobs);
+//     let fiftieth = jsonData.slice((page - 1) * 50, page * 50);
 
-    // add header 
-    res.set("Content-Type", 'application/json');
-    res.send(fiftieth);
-});
+//     // add header 
+//     res.set("Content-Type", 'application/json');
+//     res.send(fiftieth);
+// });
 
-app.get('/jobs/apicall', async (req, res) => { 
-    let onPage = "${onPage}";
-    res.send(`
-    <h1>Api Call Explanation</h1><p>Total Jobs: ${totalJobsCount}, page count: ${Math.ceil(totalJobsCount / 50)} You can fetch jobs by: <b>http://localhost:3001/jobs/page=1<br/><br/>Example: </b></p>
-    <xmp>   let allJobs = [], onPage = 0;
-    //fetch all pages from github
-    while (onPage <= ${Math.ceil(totalJobsCount / 50)}) {
-        try {
-            const res = await fetch('http://localhost:3001/jobs/page=${onPage}');
-            const jobs = await res.json();
-            allJobs.push(...jobs);
-            onPage++;
-        } catch {
-            onPage = 0;
-            allJobs = [];
-        }
-    }
-</xmp>
-    `);
-});
+// app.get('/jobs/apicall', async (req, res) => {
+//     let onPage = "${onPage}";
+//     res.send(`
+//     <h1>Api Call Explanation</h1><p>Total Jobs: ${totalJobsCount}, page count: ${Math.ceil(totalJobsCount / 50)} You can fetch jobs by: <b>http://localhost:3001/jobs/page=1<br/><br/>Example: </b></p>
+//     <xmp>   let allJobs = [], onPage = 0;
+//     //fetch all pages from github
+//     while (onPage <= ${Math.ceil(totalJobsCount / 50)}) {
+//         try {
+//             const res = await fetch('http://localhost:3001/jobs/page=${onPage}');
+//             const jobs = await res.json();
+//             allJobs.push(...jobs);
+//             onPage++;
+//         } catch {
+//             onPage = 0;
+//             allJobs = [];
+//         }
+//     }
+// </xmp>
+//     `);
+// });
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));

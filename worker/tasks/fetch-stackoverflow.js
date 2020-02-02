@@ -1,8 +1,8 @@
-var redis = require("redis"),
-    client = redis.createClient();
+// var redis = require("redis"),
+//     client = redis.createClient();
 
-const { promisify } = require('util');
-const setAsync = promisify(client.set).bind(client);
+// const { promisify } = require('util');
+// const setAsync = promisify(client.set).bind(client);
 
 const Parser = require('rss-parser');
 let parser = new Parser();
@@ -60,6 +60,8 @@ async function fetchStackoverflow() {
                     const cat = item.categories;
                     let tags = '';
                     const newDesc = item.content;
+
+                    // remove br tags from the description
                     const replacedDesc = newDesc.replace(/^(<br\s*\/?>)*|(<br\s*\/?>)*$/i, "");
 
                     if (item.categories !== undefined) {
@@ -185,13 +187,13 @@ async function fetchStackoverflow() {
             console.log('*** Merged All Filtered Unique: ' + unique.length)
 
             // set data on redis
-            const success = await setAsync('MergedAllUniqueJobs', JSON.stringify(unique));
-            console.log({ success })
+            // const success = await setAsync('MergedAllUniqueJobs', JSON.stringify(unique));
+            // console.log({ success })
 
             Array.prototype.push.apply(fullList, allGithubJobs);
             console.log('*** Merged All Jobs: ' + fullList.length);
-            const successAllJobs = await setAsync('MergedAllJobs', JSON.stringify(fullList));
-            console.log({successAllJobs});
+            // const successAllJobs = await setAsync('MergedAllJobs', JSON.stringify(fullList));
+            // console.log({successAllJobs});
         });
     });
 }
