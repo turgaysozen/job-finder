@@ -3,10 +3,10 @@ import './App.css';
 import Jobs from "../src/Components/Jobs";
 
 // production
-const JOB_API_URL = 'https://evening-river-70046.herokuapp.com/jobs';
+// const JOB_API_URL = 'https://evening-river-70046.herokuapp.com/jobs';
 
 // dev
-// const JOB_API_URL = 'http://localhost:3001/jobs';
+const JOB_API_URL = 'http://localhost:3001/jobs';
 // fetch jobs by our api
 async function JobFetch(updateCb) {
   const res = await fetch(JOB_API_URL);

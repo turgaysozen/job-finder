@@ -1,8 +1,48 @@
-// var redis = require("redis"),
-//     client = redis.createClient();
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config({ path: '.env' });
+}
+const mongoose = require('mongoose');
+mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
+const db = mongoose.connection;
+db.on('error', error => console.log(error));
+db.once('open', () => console.log('Connected to Mongoose'));
 
-// const { promisify } = require('util');
-// const setAsync = promisify(client.set).bind(client);
+const Job = require('../../model/job');
+
+
+let jsonData = [
+    {
+        id: 1,
+        type: "null",
+        url: "null",
+        created_at: "Sat Feb 01 12:53:36 UTC 2020",
+        company: "no title",
+        company_url: '',
+        location: "null",
+        title: "no hebele hubele",
+        description: "",
+        how_to_apply: '',
+        company_logo: '',
+        lastAdded: "Sat Feb 01 12:53:36 UTC 2020",
+        categories: "",
+        pubDate: "Sat Feb 01 12:53:36 UTC 2020",
+    }, {
+        id: 2,
+        type: "null",
+        url: "null",
+        created_at: "Sat Feb 01 12:53:36 UTC 2020",
+        company: "no title",
+        company_url: '',
+        location: "null",
+        title: "no title",
+        description: "",
+        how_to_apply: '',
+        company_logo: '',
+        lastAdded: "Sat Feb 01 12:53:36 UTC 2020",
+        categories: "",
+        pubDate: "Sat Feb 01 12:53:36 UTC 2020",
+    }
+]
 
 const Parser = require('rss-parser');
 let parser = new Parser();
@@ -14,8 +54,9 @@ const FEED_LIST = [
 
 let allJobs = [];
 let fullList = [];
-
+let unique;
 async function fetchStackoverflow() {
+
     const result = FEED_LIST.map(async f => {
         while (allJobs.length === 0) {
             let feed = await parser.parseURL(f);
@@ -182,20 +223,28 @@ async function fetchStackoverflow() {
             console.log('Merged Jobs Count: ' + allJobs.length);
 
             // remove dublicated items
-            const unique = [...new Map(allJobs.map(item =>
+            unique = [...new Map(allJobs.map(item =>
                 [item["id"], item])).values()];
             console.log('*** Merged All Filtered Unique: ' + unique.length)
 
-            // set data on redis
-            // const success = await setAsync('MergedAllUniqueJobs', JSON.stringify(unique));
-            // console.log({ success })
-
             Array.prototype.push.apply(fullList, allGithubJobs);
             console.log('*** Merged All Jobs: ' + fullList.length);
-            // const successAllJobs = await setAsync('MergedAllJobs', JSON.stringify(fullList));
-            // console.log({successAllJobs});
+
+            // remove old data
+            await Job.remove();
+            // insert new data
+            const job = new Job({
+                filteredJobs: JSON.stringify(unique),
+                allJobs: JSON.stringify(fullList),
+
+            });
+            await job.save();
         });
     });
 }
+
 fetchStackoverflow();
-module.exports = fetchStackoverflow;
+module.exports = {
+    fetchStackoverflow: fetchStackoverflow,
+    uniqueJobs: unique
+};

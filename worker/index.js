@@ -1,7 +1,7 @@
 var CronJob = require('cron').CronJob;
 
 const scraper = require('../worker/tasks/fetch-github').fetchGithub;
-const fetchStackoverflow = require('./tasks/fetch-stackoverflow');
+const fetchStackoverflow = require('./tasks/fetch-stackoverflow').fetchStackoverflow;
 
 async function RunCron() {
   fetchStackoverflow();
