@@ -22,7 +22,9 @@ db.once('open', () => console.log('Connected to Mongoose'));
 let totalJobsCount;
 
 let wtf = Job.find();
-console.log(wtf[0].allJobs)
+console.log({wtf})
+console.log('*************')
+console.log(wtf[0].filteredJobs)
 
 app.get('/jobs', async (req, res) => {
     
