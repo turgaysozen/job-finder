@@ -24,6 +24,7 @@ let totalJobsCount;
 app.get('/jobs', async (req, res) => {
     
     let jsonData = await Job.find();
+    console.log(jsonData)
     totalJobsCount = JSON.parse(jsonData[0].allJobs).length;
     if(process.env.NODE_ENV === 'production'){
         res.header("Access-Control-Allow-Origin", "https://evening-river-70046.herokuapp.com");

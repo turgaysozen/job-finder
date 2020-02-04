@@ -16,8 +16,9 @@ else {
 // fetch jobs by our api
 async function JobFetch(updateCb) {
   const res = await fetch(JOB_API_URL);
-  const json = await res.text();
-  updateCb(JSON.parse(json));
+  const json = await res.json();
+  console.log(json)
+  updateCb(json);
 }
 
 function App() {
