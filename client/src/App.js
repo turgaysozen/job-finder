@@ -16,10 +16,13 @@ let JOB_API_URL = '/jobs';
 // const JOB_API_URL = 'http://localhost:3001/jobs';
 // fetch jobs by our api
 async function JobFetch(updateCb) {
-  const res = await fetch(JOB_API_URL);
-  const json = await res.json();
-  console.log(json)
-  updateCb(json);
+  // const res = 
+  await fetch(JOB_API_URL)
+  .then(res => res.text())
+  .then(text => {console.log(text), updateCb(text)});
+  // const json = await res.json();
+  // console.log(json)
+  // updateCb(json);
 }
 
 function App() {
