@@ -49,8 +49,6 @@ async function fetchGithub() {
 
         });
 
-
-
         callback(jrJobs, allJobs);
     }
     fetchGithub();

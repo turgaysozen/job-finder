@@ -9,41 +9,6 @@ db.once('open', () => console.log('Connected to Mongoose'));
 
 const Job = require('../../model/job');
 
-
-let jsonData = [
-    {
-        id: 1,
-        type: "null",
-        url: "null",
-        created_at: "Sat Feb 01 12:53:36 UTC 2020",
-        company: "no title",
-        company_url: '',
-        location: "null",
-        title: "no hebele hubele",
-        description: "",
-        how_to_apply: '',
-        company_logo: '',
-        lastAdded: "Sat Feb 01 12:53:36 UTC 2020",
-        categories: "",
-        pubDate: "Sat Feb 01 12:53:36 UTC 2020",
-    }, {
-        id: 2,
-        type: "null",
-        url: "null",
-        created_at: "Sat Feb 01 12:53:36 UTC 2020",
-        company: "no title",
-        company_url: '',
-        location: "null",
-        title: "no title",
-        description: "",
-        how_to_apply: '',
-        company_logo: '',
-        lastAdded: "Sat Feb 01 12:53:36 UTC 2020",
-        categories: "",
-        pubDate: "Sat Feb 01 12:53:36 UTC 2020",
-    }
-]
-
 const Parser = require('rss-parser');
 let parser = new Parser();
 
@@ -54,7 +19,6 @@ const FEED_LIST = [
 
 let allJobs = [];
 let fullList = [];
-let unique;
 async function fetchStackoverflow() {
 
     const result = FEED_LIST.map(async f => {
@@ -223,7 +187,7 @@ async function fetchStackoverflow() {
             console.log('Merged Jobs Count: ' + allJobs.length);
 
             // remove dublicated items
-            unique = [...new Map(allJobs.map(item =>
+           let unique = [...new Map(allJobs.map(item =>
                 [item["id"], item])).values()];
             console.log('*** Merged All Filtered Unique: ' + unique.length)
 
@@ -236,7 +200,6 @@ async function fetchStackoverflow() {
             const job = new Job({
                 filteredJobs: JSON.stringify(unique),
                 allJobs: JSON.stringify(fullList),
-
             });
             await job.save();
         });
@@ -246,5 +209,4 @@ async function fetchStackoverflow() {
 fetchStackoverflow();
 module.exports = {
     fetchStackoverflow: fetchStackoverflow,
-    uniqueJobs: unique
 };
