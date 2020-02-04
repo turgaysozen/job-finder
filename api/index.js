@@ -26,7 +26,8 @@ app.get('/jobs', async (req, res) => {
 
     let jsonData = await Job.find();
     totalJobsCount = JSON.parse(jsonData[0].allJobs).length;
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    console.log(totalJobsCount)
+    res.header("Access-Control-Allow-Origin", "https://evening-river-70046.herokuapp.com");
     res.send(jsonData[0].filteredJobs);
 });
 
