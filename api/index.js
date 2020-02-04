@@ -13,7 +13,6 @@ else {
 }
 
 const Job = require('../model/job');
-
 const mongoose = require('mongoose');
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
 const db = mongoose.connection;
@@ -23,11 +22,15 @@ db.once('open', () => console.log('Connected to Mongoose'));
 let totalJobsCount;
 
 app.get('/jobs', async (req, res) => {
-
+    
     let jsonData = await Job.find();
     totalJobsCount = JSON.parse(jsonData[0].allJobs).length;
-    console.log(totalJobsCount)
-    res.header("Access-Control-Allow-Origin", "https://evening-river-70046.herokuapp.com");
+    if(process.env.NODE_ENV === 'production'){
+        res.header("Access-Control-Allow-Origin", "https://evening-river-70046.herokuapp.com");
+    }
+    else {
+        res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    }
     res.send(jsonData[0].filteredJobs);
 });
 
