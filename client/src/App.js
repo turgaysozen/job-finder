@@ -5,7 +5,7 @@ import Jobs from "../src/Components/Jobs";
 // production
 let JOB_API_URL;
 if (process.env.NODE_ENV === 'production') {
-   JOB_API_URL = 'https://evening-river-70046.herokuapp.com/jobs';
+   JOB_API_URL = '/jobs';
 }
 else {
   JOB_API_URL = 'http://localhost:3001/jobs';
