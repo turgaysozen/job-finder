@@ -15,15 +15,9 @@ else {
 // const JOB_API_URL = 'http://localhost:3001/jobs';
 // fetch jobs by our api
 async function JobFetch(updateCb) {
-  const res = await fetch(JOB_API_URL, {
-    headers : { 
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-     }
-  });
-  const json = await res.json();
-  console.log(json)
-  updateCb(json);
+  const res = await fetch(JOB_API_URL);
+  const json = await res.text();
+  updateCb(JSON.parse(json));
 }
 
 function App() {
