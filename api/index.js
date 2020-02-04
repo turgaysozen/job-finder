@@ -42,12 +42,12 @@ app.get('/jobs/page=:id', async (req, res) => {
 app.get('/jobs/apicall', async (req, res) => {
     let onPage = "${onPage}";
     res.send(`
-    <h1>Api Call Explanation</h1><p>Total Jobs: ${totalJobsCount}, page count: ${Math.ceil(totalJobsCount / 50)} You can fetch jobs by: <b>http://localhost:3001/jobs/page=1<br/><br/>Example: </b></p>
+    <h1>Api Call Explanation</h1><p>Total Jobs: ${totalJobsCount}, page count: ${Math.ceil(totalJobsCount / 50)} You can fetch jobs by: <b>https://evening-river-70046.herokuapp.com/jobs/page=1<br/><br/>Example: </b></p>
     <xmp>   let allJobs = [], onPage = 0;
     //fetch all pages from github
     while (onPage <= ${Math.ceil(totalJobsCount / 50)}) {
         try {
-            const res = await fetch('http://localhost:3001/jobs/page=${onPage}');
+            const res = await fetch('https://evening-river-70046.herokuapp.com/jobs/page=${onPage}');
             const jobs = await res.json();
             allJobs.push(...jobs);
             onPage++;
