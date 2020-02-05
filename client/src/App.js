@@ -18,11 +18,11 @@ let JOB_API_URL = '/jobs';
 async function JobFetch(updateCb) {
   // const res = 
   await fetch(JOB_API_URL)
-  .then(res => res.text())
-  .then(text => {console.log(text), updateCb(text)});
-  // const json = await res.json();
-  // console.log(json)
-  // updateCb(json);
+  // .then(res => res.text())
+  // .then(text => {console.log(text), updateCb(text)});
+  const json = await res.json();
+  console.log(json)
+  updateCb(json);
 }
 
 function App() {
