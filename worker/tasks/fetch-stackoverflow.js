@@ -198,8 +198,8 @@ async function fetchStackoverflow() {
             await Job.remove();
             // insert new data
             const job = new Job({
-                filteredJobs: JSON.stringify(unique),
-                allJobs: JSON.stringify(fullList),
+                filteredJobs: unique, //JSON.stringify(unique),
+                allJobs: fullList // JSON.stringify(fullList),
             });
             await job.save();
         });

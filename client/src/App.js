@@ -10,25 +10,17 @@ import Jobs from "../src/Components/Jobs";
 // else {
 //   JOB_API_URL = 'http://localhost:3001/jobs';
 // }
-let JOB_API_URL = 'https://job-finder-2020.herokuapp.com/jobs';
+let JOB_API_URL = '/jobs';
 
 // dev
 // const JOB_API_URL = 'http://localhost:3001/jobs';
 
 // fetch jobs by our api
 async function JobFetch(updateCb) {
-  //  const res =  
-   await fetch(JOB_API_URL)
-    .then((response) => response.json())
-    .then((messages) => {console.log(messages)});
-    
-    // .then(res => res.text())
-    // .then(text => {
-    //   console.log(text)
-    // });
-  // const json = await res.json();
-  // console.log(json)
-  // updateCb(json);
+  const res =  await fetch(JOB_API_URL)
+  const json = await res.json();
+  console.log(json)
+  updateCb(json);
 }
 
 function App() {

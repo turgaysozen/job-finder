@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 var jobSchema = new mongoose.Schema({
     filteredJobs: {
-        type: String,
+        type: [],
         required: true
     },
     allJobs: {
-        type: String,
+        type: [],
         required: true
     }
     // title: {
