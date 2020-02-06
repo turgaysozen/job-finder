@@ -46,7 +46,7 @@ app.get('/jobs/apicall', async (req, res) => {
     //fetch all pages from github
     while (onPage <= ${Math.ceil(totalJobsCount / 50)}) {
         try {
-            const res = await fetch('https://evening-river-70046.herokuapp.com/jobs/page=${onPage}');
+            const res = await fetch('https://job-finder-2020.herokuapp.com/jobs/page=${onPage}');
             const jobs = await res.json();
             allJobs.push(...jobs);
             onPage++;
