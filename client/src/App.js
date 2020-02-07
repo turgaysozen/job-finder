@@ -17,7 +17,12 @@ let JOB_API_URL = '/jobs';
 
 // fetch jobs by our api
 async function JobFetch(updateCb) {
-  const res =  await fetch(JOB_API_URL)
+  const res =  await fetch(JOB_API_URL, {
+    headers: {
+      "Access-Control-Allow-Origin" : "*", 
+      "Access-Control-Allow-Credentials" : true 
+    },
+  })
   const json = await res.json();
   console.log(json)
   updateCb(json);
