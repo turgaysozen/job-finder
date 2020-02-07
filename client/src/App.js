@@ -5,7 +5,7 @@ import Jobs from "../src/Components/Jobs";
 // production
 let JOB_API_URL;
 if (process.env.NODE_ENV === 'production') {
-   JOB_API_URL = '/jobs';
+  JOB_API_URL = '/jobs';
 }
 else {
   JOB_API_URL = 'http://localhost:3001/jobs';
@@ -17,7 +17,7 @@ else {
 
 // fetch jobs by our api
 async function JobFetch(updateCb) {
-  const res =  await fetch(JOB_API_URL)
+  const res = await fetch(JOB_API_URL);
   const json = await res.json();
   console.log(json)
   updateCb(json);

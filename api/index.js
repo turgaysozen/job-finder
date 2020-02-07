@@ -65,7 +65,6 @@ app.get('/jobs', async (req, res) => {
     //     if(err) throw err;
     //     res.send(result);
     // });
-    res.status(200); // sends a status code
     res.send(JSON.stringify(jsonData));
 });
 
