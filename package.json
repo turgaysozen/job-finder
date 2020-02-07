@@ -8,7 +8,6 @@
   "main": "index.js",
   "scripts": {
     "client-install": "npm install --prefix client",
-    "start": "node api index.js",
     "server": "nodemon api index.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\" \"node worker index.js\"",

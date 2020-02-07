@@ -65,7 +65,7 @@ app.get('/jobs', async (req, res) => {
     //     if(err) throw err;
     //     res.send(result);
     // });
-    res.send(JSON.stringify(jsonData));
+    res.send(jsonData);
 });
 
 app.get('/jobs/page=:id', async (req, res) => {

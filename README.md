@@ -3,7 +3,3 @@ You can clone it and use it on your project..<h2>
 <br><br/>
 
 ![Alt text](job-app.png?raw=true "Job-app image")
-
-
-
-
