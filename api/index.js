@@ -27,7 +27,7 @@ app.get('/jobs', async (req, res) => {
     // console.log(jsonData[0].allJobs)
     totalJobsCount = jsonData[0].allJobs.length;
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    res.send(jsonData[0].filteredJobs);
+    res.send(JSON.stringify(jsonData[0].filteredJobs));
 });
 
 app.get('/jobs/page=:id', async (req, res) => {
