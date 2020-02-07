@@ -21,14 +21,48 @@ db.once('open', () => console.log('Connected to Mongoose'));
 
 let totalJobsCount;
 
+let jsonData = [
+    {
+        id: 1,
+        type: "null",
+        url: "null",
+        created_at: "Sat Feb 01 12:53:36 UTC 2020",
+        company: "no title",
+        company_url: '',
+        location: "null",
+        title: "no hebele hubele",
+        description: "",
+        how_to_apply: '',
+        company_logo: '',
+        lastAdded: "Sat Feb 01 12:53:36 UTC 2020",
+        categories: "",
+        pubDate: "Sat Feb 01 12:53:36 UTC 2020",
+    }, {
+        id: 2,
+        type: "null",
+        url: "null",
+        created_at: "Sat Feb 01 12:53:36 UTC 2020",
+        company: "no title",
+        company_url: '',
+        location: "null",
+        title: "no title",
+        description: "",
+        how_to_apply: '',
+        company_logo: '',
+        lastAdded: "Sat Feb 01 12:53:36 UTC 2020",
+        categories: "",
+        pubDate: "Sat Feb 01 12:53:36 UTC 2020",
+    }
+]
+
 app.get('/jobs', async (req, res) => {
     
-    let jsonData = await Job.find();
-    // console.log(jsonData[0].allJobs)
-    totalJobsCount = jsonData[0].filteredJobs.length;
+    // let jsonData = await Job.find();
+    // // console.log(jsonData[0].allJobs)
+    // totalJobsCount = jsonData[0].filteredJobs.length;
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    let data = jsonData[0].filteredJobs;
-    res.send(data);
+    // let data = jsonData[0].filteredJobs;
+    res.send(jsonData);
 });
 
 app.get('/jobs/page=:id', async (req, res) => {
