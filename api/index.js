@@ -25,16 +25,17 @@ app.get('/jobs', async (req, res) => {
     
     let jsonData = await Job.find();
     // console.log(jsonData[0].allJobs)
-    totalJobsCount = jsonData[0].allJobs.length;
+    totalJobsCount = jsonData[0].filteredJobs.length;
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    res.send(JSON.stringify(jsonData[0].filteredJobs));
+    let data = jsonData[0].filteredJobs;
+    res.send(data);
 });
 
 app.get('/jobs/page=:id', async (req, res) => {
 
     let jsonData = await Job.find();
     let page = req.params.id;
-    let fiftieth = jsonData[0].allJobs.slice((page - 1) * 50, page * 50);
+    let fiftieth = jsonData[0].filteredJobs.slice((page - 1) * 50, page * 50);
     res.set("Content-Type", 'application/json');
     res.send(fiftieth);
 });
