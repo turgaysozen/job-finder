@@ -69,7 +69,6 @@ app.get('/jobs', async (req, res) => {
 });
 
 app.get('/jobs/page=:id', async (req, res) => {
-
     let jsonData = await Job.find();
     let page = req.params.id;
     let fiftieth = jsonData[0].filteredJobs.slice((page - 1) * 50, page * 50);
