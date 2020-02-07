@@ -10,10 +10,10 @@ import Jobs from "../src/Components/Jobs";
 // else {
 //   JOB_API_URL = 'http://localhost:3001/jobs';
 // }
-// let JOB_API_URL = '/jobs';
+let JOB_API_URL = '/jobs';
 
 // dev
-const JOB_API_URL = 'http://localhost:3001/jobs';
+// const JOB_API_URL = 'http://localhost:3001/jobs';
 
 // fetch jobs by our api
 async function JobFetch(updateCb) {
