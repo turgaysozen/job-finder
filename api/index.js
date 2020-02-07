@@ -56,13 +56,17 @@ let jsonData = [
 ]
 
 app.get('/jobs', async (req, res) => {
-    
+
     // let jsonData = await Job.find();
     // // console.log(jsonData[0].allJobs)
     // totalJobsCount = jsonData[0].filteredJobs.length;
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    // let data = jsonData[0].filteredJobs;
-    res.send(jsonData);
+    // jsonData.toArray((err, result) => {
+    //     if(err) throw err;
+    //     res.send(result);
+    // });
+    res.status(200); // sends a status code
+    res.send(JSON.stringify(jsonData));
 });
 
 app.get('/jobs/page=:id', async (req, res) => {
