@@ -54,13 +54,16 @@ let jsonData = [
         pubDate: "Sat Feb 01 12:53:36 UTC 2020",
     }
 ]
+console.log(jsonData)
 
 app.get('/jobs', async (req, res) => {
 
     // let jsonData = await Job.find();
     // // console.log(jsonData[0].allJobs)
     // totalJobsCount = jsonData[0].filteredJobs.length;
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    // res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.setHeader('Content-Type', 'application/json');
+
     // jsonData.toArray((err, result) => {
     //     if(err) throw err;
     //     res.send(result);
@@ -81,7 +84,7 @@ app.get('/jobs/page=:id', async (req, res) => {
 app.get('/jobs/apicall', async (req, res) => {
     let onPage = "${onPage}";
     res.send(`
-    <h1>Api Call Explanation</h1><p>Total Jobs: ${totalJobsCount}, page count: ${Math.ceil(totalJobsCount / 50)} You can fetch jobs by: <b>https://evening-river-70046.herokuapp.com/jobs/page=1<br/><br/>Example: </b></p>
+    <h1>Api Call Explanation</h1><p>Total Jobs: ${totalJobsCount}, page count: ${Math.ceil(totalJobsCount / 50)} You can fetch jobs by: <b>https://job-finder-2020.herokuapp.com/jobs/page=1<br/><br/>Example: </b></p>
     <xmp>   let allJobs = [], onPage = 0;
     //fetch all pages from github
     while (onPage <= ${Math.ceil(totalJobsCount / 50)}) {
@@ -101,4 +104,3 @@ app.get('/jobs/apicall', async (req, res) => {
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
-
