@@ -54,7 +54,7 @@ let jsonData = [
         pubDate: "Sat Feb 01 12:53:36 UTC 2020",
     }
 ]
-console.log(jsonData)
+console.log(JSON.stringify(jsonData))
 
 app.get('/jobs', async (req, res) => {
 
@@ -70,7 +70,7 @@ app.get('/jobs', async (req, res) => {
     // });
     // res.send(jsonData);
     console.log(jsonData)
-    return res.json(jsonData);
+    return res.json(JSON.stringify(jsonData));
 });
 
 app.get('/jobs/page=:id', async (req, res) => {

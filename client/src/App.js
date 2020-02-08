@@ -20,7 +20,7 @@ async function JobFetch(updateCb) {
   const res = await fetch(JOB_API_URL);
   const json = await res.json();
    console.log(json)
-   updateCb(json);
+   updateCb(JSON.parse(json));
 }
 
 function App() {
