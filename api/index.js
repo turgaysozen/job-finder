@@ -2,6 +2,9 @@
 const express = require('express')
 const app = express();
 const path = require('path');
+const bodyParser = require('body-parser');
+var cors = require('cors');
+
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
     app.get('*', (req, res) => {
@@ -18,6 +21,10 @@ mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
 const db = mongoose.connection;
 db.on('error', error => console.log(error));
 db.once('open', () => console.log('Connected to Mongoose'));
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(cors());
 
 let totalJobsCount;
 
