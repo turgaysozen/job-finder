@@ -17,10 +17,7 @@ else {
 
 // fetch jobs by our api
 async function JobFetch(updateCb) {
-  const res = await fetch(JOB_API_URL, {
-    credentials: 'include',
-    mode: 'cors'
-  });
+  const res = await fetch(JOB_API_URL);
   const json = await res.json();
   console.log('Hello')
    console.log(json)
