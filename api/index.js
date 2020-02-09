@@ -65,7 +65,6 @@ let jsonData = [
         pubDate: "Sat Feb 01 12:53:36 UTC 2020",
     }
 ]
-console.log(JSON.stringify(jsonData))
 
 app.get('/jobs', async (req, res) => {
 
