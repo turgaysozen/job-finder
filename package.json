@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "client-install": "npm install --prefix client",
-    "start": "npm install && node api index.js",
+    "install-client": "cd client && npm install",
+    "build": "cd client && npm run build",
+    "start": "node api index.js",
     "server": "nodemon api index.js",
-    "client": "npm start --prefix client",
+    "client": "cd client && npm start",
     "dev": "concurrently \"npm run server\" \"npm run client\" \"node worker index.js\"",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "npm run install-client && npm run build"
   },
   "engines": {
     "node": "12.13.1"
