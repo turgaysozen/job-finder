@@ -21,7 +21,7 @@ async function JobFetch(updateCb) {
   const json = await res.json();
   console.log('Hello')
    console.log(json)
-   updateCb(JSON.parse(json));
+   updateCb(json);
 }
 
 function App() {
