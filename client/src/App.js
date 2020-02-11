@@ -15,13 +15,47 @@ else {
 // dev
 // const JOB_API_URL = 'http://localhost:3001/jobs';
 
+let jsonData = [
+  {
+      id: 1,
+      type: "null",
+      url: "null",
+      created_at: "Sat Feb 01 12:53:36 UTC 2020",
+      company: "no title",
+      company_url: '',
+      location: "null",
+      title: "no hebele hubele",
+      description: "",
+      how_to_apply: '',
+      company_logo: '',
+      lastAdded: "Sat Feb 01 12:53:36 UTC 2020",
+      categories: "",
+      pubDate: "Sat Feb 01 12:53:36 UTC 2020",
+  }, {
+      id: 2,
+      type: "null",
+      url: "null",
+      created_at: "Sat Feb 01 12:53:36 UTC 2020",
+      company: "no title",
+      company_url: '',
+      location: "null",
+      title: "no title",
+      description: "",
+      how_to_apply: '',
+      company_logo: '',
+      lastAdded: "Sat Feb 01 12:53:36 UTC 2020",
+      categories: "",
+      pubDate: "Sat Feb 01 12:53:36 UTC 2020",
+  }
+]
+
 // fetch jobs by our api
 async function JobFetch(updateCb) {
   const res = await fetch(JOB_API_URL);
   const json = await res.json();
   console.log('Hello')
    console.log(json)
-   updateCb(json);
+   updateCb(jsonData);
 }
 
 function App() {
