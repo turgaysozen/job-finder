@@ -49,13 +49,14 @@ let jsonData = [
   }
 ]
 
+// https://jobs.github.com/positions.json
+
 // fetch jobs by our api
 async function JobFetch(updateCb) {
   const res = await fetch(JOB_API_URL);
   const json = await res.json();
-  console.log('Hello')
-   console.log(json)
-   updateCb(jsonData);
+  console.log(json)
+   updateCb(json);
 }
 
 function App() {

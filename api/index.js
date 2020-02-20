@@ -28,45 +28,45 @@ app.use(cors());
 
 let totalJobsCount;
 
-let jsonData = [
-    {
-        id: 1,
-        type: "null",
-        url: "null",
-        created_at: "Sat Feb 01 12:53:36 UTC 2020",
-        company: "no title",
-        company_url: '',
-        location: "null",
-        title: "no hebele hubele",
-        description: "",
-        how_to_apply: '',
-        company_logo: '',
-        lastAdded: "Sat Feb 01 12:53:36 UTC 2020",
-        categories: "",
-        pubDate: "Sat Feb 01 12:53:36 UTC 2020",
-    }, {
-        id: 2,
-        type: "null",
-        url: "null",
-        created_at: "Sat Feb 01 12:53:36 UTC 2020",
-        company: "no title",
-        company_url: '',
-        location: "null",
-        title: "no title",
-        description: "",
-        how_to_apply: '',
-        company_logo: '',
-        lastAdded: "Sat Feb 01 12:53:36 UTC 2020",
-        categories: "",
-        pubDate: "Sat Feb 01 12:53:36 UTC 2020",
-    }
-]
+// let jsonData = [
+//     {
+//         id: 1,
+//         type: "null",
+//         url: "null",
+//         created_at: "Sat Feb 01 12:53:36 UTC 2020",
+//         company: "no title",
+//         company_url: '',
+//         location: "null",
+//         title: "no hebele hubele",
+//         description: "",
+//         how_to_apply: '',
+//         company_logo: '',
+//         lastAdded: "Sat Feb 01 12:53:36 UTC 2020",
+//         categories: "",
+//         pubDate: "Sat Feb 01 12:53:36 UTC 2020",
+//     }, {
+//         id: 2,
+//         type: "null",
+//         url: "null",
+//         created_at: "Sat Feb 01 12:53:36 UTC 2020",
+//         company: "no title",
+//         company_url: '',
+//         location: "null",
+//         title: "no title",
+//         description: "",
+//         how_to_apply: '',
+//         company_logo: '',
+//         lastAdded: "Sat Feb 01 12:53:36 UTC 2020",
+//         categories: "",
+//         pubDate: "Sat Feb 01 12:53:36 UTC 2020",
+//     }
+// ]
 
 app.get('/jobs', async (req, res) => {
 
-    // let jsonData = await Job.find();
+    let jsonData = await Job.find();
     // // console.log(jsonData[0].allJobs)
-    // totalJobsCount = jsonData[0].filteredJobs.length;
+    totalJobsCount = jsonData[0].allJobs.length;
     // res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     res.setHeader('Content-Type', 'application/json');
 
@@ -76,7 +76,7 @@ app.get('/jobs', async (req, res) => {
     // });
     // res.send(jsonData);
     // console.log(jsonData)
-    res.send(jsonData);
+    res.send(jsonData[0].filteredJobs);
 });
 
 app.get('/jobs/page=:id', async (req, res) => {
@@ -90,12 +90,12 @@ app.get('/jobs/page=:id', async (req, res) => {
 app.get('/jobs/apicall', async (req, res) => {
     let onPage = "${onPage}";
     res.send(`
-    <h1>Api Call Explanation</h1><p>Total Jobs: ${totalJobsCount}, page count: ${Math.ceil(totalJobsCount / 50)} You can fetch jobs by: <b>https://job-finder-2020.herokuapp.com/jobs/page=1<br/><br/>Example: </b></p>
+    <h1>Api Call Explanation</h1><p>Total Jobs: <b/>${totalJobsCount}</b>, page count: <b>${Math.ceil(totalJobsCount / 50)}</b> You can fetch jobs by: <b>http://localhost:3001/jobs/page=1<br/><br/>Example: </b></p>
     <xmp>   let allJobs = [], onPage = 0;
     //fetch all pages from github
     while (onPage <= ${Math.ceil(totalJobsCount / 50)}) {
         try {
-            const res = await fetch('https://job-finder-2020.herokuapp.com/jobs/page=${onPage}');
+            const res = await fetch('http://localhost:3001/jobs/page=${onPage}');
             const jobs = await res.json();
             allJobs.push(...jobs);
             onPage++;

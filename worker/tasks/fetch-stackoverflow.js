@@ -198,7 +198,7 @@ async function fetchStackoverflow() {
             await Job.remove();
             // insert new data
             const job = new Job({
-                filteredJobs: filteredGithubJobs, //JSON.stringify(unique),
+                filteredJobs: unique, //JSON.stringify(unique),
                 allJobs: fullList // JSON.stringify(fullList),
             });
             await job.save();

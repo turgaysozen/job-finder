@@ -117,6 +117,7 @@ export default function Jobs({ jobs }) {
         })
     }
     console.log(jobs)
+    
     // pagination structure
     let jobsPerPage = 25;
     let jobOnPage = jobs.slice(activeStep * jobsPerPage, (activeStep + 1) * jobsPerPage);
