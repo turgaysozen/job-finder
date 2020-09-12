@@ -25,7 +25,7 @@
     "cron": "^1.7.2",
     "express": "^4.17.1",
     "mongoose": "^5.8.11",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "puppeteer": "^2.0.0",
     "redis": "^2.8.0",
     "redis-cli": "^1.4.0",
